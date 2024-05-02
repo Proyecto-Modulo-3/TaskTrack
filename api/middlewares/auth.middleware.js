@@ -14,6 +14,17 @@ module.exports.checkAuth = (req, res, next) => {
             const sub = decoded.sub;
 
             User.findById(sub)
+            .populate({
+                path: 'lists',
+                populate: {
+                    path: 'tasks',
+                    match: { _id: req.params.id },
+                    populate: {
+                        path: 'cards',
+                        match: { _id: req.params.id }
+                    },
+                },
+            })
                 .then((user) => {
                     if (user) {
                         req.user = user;
@@ -27,34 +38,5 @@ module.exports.checkAuth = (req, res, next) => {
         break;
         default:
             res.status(401).json({ message: `Unsupported schema ${schema}`});
-    }
-};
-
-// OPCION 2:
-
-//  module.exports.checkAuth = (req, res, next) => {
-//     const token = req.headers?.authorization.split(' ')[1];
-
-//     if (!token) {
-//         return res.status(401).json({ message: 'Token not provided' });
-//     }
-
-//     try {
-//         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//         req.user = decoded;
-//         next();
-//     } catch (error) {
-//         return res.status(401).json({ message: 'Invalid token' });
-//     }
-// };
-
-module.exports.checkRole = (role) => {
-    return (req, res, next) => {
-        const user = req.user;
-        if (user && user.role === role) {
-            next();
-        } else {
-            res.status(403).json({ message: 'You are not authorized'});
-        }
     }
 };

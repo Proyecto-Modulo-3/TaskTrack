@@ -50,8 +50,10 @@ const userSchema = new Schema(
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = ret._id;
+        // ret.lists = ret.lists.map(list => ({list})) //Eliminar campos del populate
         delete ret._id;
         delete ret.__v;
         delete ret.password;
@@ -64,7 +66,7 @@ const userSchema = new Schema(
 userSchema.virtual('lists', {
   ref: 'List',
   localField: '_id',
-  foreignField: 'user',
+  foreignField: 'owner',
   justOne: false
 });
 

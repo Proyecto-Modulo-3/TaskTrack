@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const List = require("../models/list.model");
 
 module.exports.create = (req, res, next) => {
-  List.create(req.body)
+  List.create({ ...req.body, owner: req.user.id })
     .then((list) => res.status(201).json(list))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -15,7 +15,7 @@ module.exports.create = (req, res, next) => {
 
 module.exports.viewLists = (req, res, next) => {
   List.find()
-    .populate('owner') //SOBRA??
+    .populate('owner')
     .then((list) => {
       if (list.length > 0) {
         res.status(200).json(list);
@@ -27,7 +27,7 @@ module.exports.viewLists = (req, res, next) => {
 };
 
 module.exports.detail = (req, res, next) => {
-  List.findById(req.params.id)
+  List.findById(req.params.listId)
     .populate("tasks")
     .then((list) => {
       if (list) {
@@ -40,7 +40,7 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.update = (req, res, next) => {
-  List.findByIdAndUpdate(req.params.id, req.body, {
+  List.findByIdAndUpdate(req.params.listId, req.body, {
     runValidators: true,
     new: true,
   })
@@ -61,7 +61,7 @@ module.exports.update = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-  List.findByIdAndDelete(req.params.id)
+  List.findByIdAndDelete(req.params.listId)
     .then((list) => {
       if (list) {
         res.status(202).send();

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Card = require('../models/card.model');
 
 module.exports.create = (req, res, next) => {
-  Card.create(req.body)
+  Card.create({ ...req.body, task: req.params.taskId })
     .then((card) => res.status(201).json(card))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
@@ -15,7 +15,6 @@ module.exports.create = (req, res, next) => {
 
 module.exports.viewCards = (req, res, next) => {
   Card.find()
-    .populate("task")
     .then((card) => {
       if (card.length > 0) {
         res.status(200).json(card);
@@ -27,8 +26,7 @@ module.exports.viewCards = (req, res, next) => {
 };
 
 module.exports.detail = (req, res, next) => {
-    Card.findById(req.params.id)
-      // .populate("cards")
+    Card.findById(req.params.cardId)
       .then((card) => {
         if (card) {
           res.status(200).json(card);
@@ -40,7 +38,7 @@ module.exports.detail = (req, res, next) => {
   };
 
   module.exports.update = (req, res, next) => {
-    Card.findByIdAndUpdate(req.params.id, req.body, {
+    Card.findByIdAndUpdate(req.params.cardId, req.body, {
         runValidators: true,
         new: true
     })
@@ -62,7 +60,7 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-    Card.findByIdAndDelete(req.params.id)
+    Card.findByIdAndDelete(req.params.cardId)
       .then((card) => {
         if (card) {
           res.status(202).send();
