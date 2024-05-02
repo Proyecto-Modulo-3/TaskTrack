@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-const Task = require("../models/task.model");
+const Card = require('../models/card.model');
 
 module.exports.create = (req, res, next) => {
-  Task.create(req.body)
-    .then((task) => res.status(201).json(task))
+  Card.create(req.body)
+    .then((card) => res.status(201).json(card))
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(400).json(error.errors);
@@ -13,42 +13,42 @@ module.exports.create = (req, res, next) => {
     });
 };
 
-module.exports.viewTasks = (req, res, next) => {
-  Task.find()
-    .populate("list")
-    .then((task) => {
-      if (task.length > 0) {
-        res.status(200).json(task);
+module.exports.viewCards = (req, res, next) => {
+  Card.find()
+    .populate("task")
+    .then((card) => {
+      if (card.length > 0) {
+        res.status(200).json(card);
       } else {
-        res.status(404).json({ message: "You have no tasks" });
+        res.status(404).json({ message: "You have no cards" });
       }
     })
     .catch(next);
 };
 
 module.exports.detail = (req, res, next) => {
-    Task.findById(req.params.id)
+    Card.findById(req.params.id)
       // .populate("cards")
-      .then((task) => {
-        if (task) {
-          res.status(200).json(task);
+      .then((card) => {
+        if (card) {
+          res.status(200).json(card);
         } else {
-          res.status(404).json({ message: "You have no tasks" });
+          res.status(404).json({ message: "You have no cards" });
         }
       })
       .catch(next);
   };
 
   module.exports.update = (req, res, next) => {
-    Task.findByIdAndUpdate(req.params.id, req.body, {
+    Card.findByIdAndUpdate(req.params.id, req.body, {
         runValidators: true,
         new: true
     })
-    .then((task) => {
-        if (task) {
-            res.status(202).json(task);
+    .then((card) => {
+        if (card) {
+            res.status(202).json(card);
         } else {
-            res.status(404).json({ message: "You have no tasks" });
+            res.status(404).json({ message: "You have no cards" });
         }
     })
     .catch((error) => {
@@ -62,12 +62,12 @@ module.exports.detail = (req, res, next) => {
 };
 
 module.exports.delete = (req, res, next) => {
-    Task.findByIdAndDelete(req.params.id)
-      .then((task) => {
-        if (task) {
+    Card.findByIdAndDelete(req.params.id)
+      .then((card) => {
+        if (card) {
           res.status(202).send();
         } else {
-          res.status(404).json({ message: "You have no tasks" });
+          res.status(404).json({ message: "You have no cards" });
         }
       })
       .catch(next);

@@ -18,15 +18,6 @@ const taskSchema = new Schema(
     completed: {
       type: Boolean,
       default: false,
-    },
-    dueTo: {
-      type: Date,
-      validate: {
-        validator: function (dueTo) {
-          return dueTo > new Date();
-        },
-        message: "Due date must be in the future",
-      },
     }
   },
   {

@@ -47,16 +47,36 @@ module.exports.login = (req, res, next) => {
 
 module.exports.profile = (req, res) => res.json(req.user);
 
-// LOGOUT
-module.exports.logout = (req, res, next) => {
-  res.status(204).send();
-};
+// // LOGOUT
+// module.exports.logout = (req, res, next) => {
+//   res.status(204).send();
+// };
 
 // UPDATE
+module.exports.update = (req, res, next) => {
+  User.findByIdAndUpdate(req.params.id, req.body, {
+    runValidators: true,
+    new: true,
+  })
+    .then((user) => {
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).json ({ message: 'User not found'});
+      }
+    })
+      .catch((error) => {
+        if (error instanceof mongoose.Error.ValidationError) {
+          res.status(400).json(error.errors);
+        } else {
+          next(error);
+        }
+      });
+};
+
+// DELETE
 module.exports.delete = (req, res, next) => {
   User.deleteOne({ _id: req.user.id })
     .then(() => res.status(204).send())
     .catch(next);
 };
-
-// DELETE

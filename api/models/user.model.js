@@ -64,7 +64,8 @@ const userSchema = new Schema(
 userSchema.virtual('lists', {
   ref: 'List',
   localField: '_id',
-  foreignField: 'user'
+  foreignField: 'user',
+  justOne: false
 });
 
 userSchema.pre("save", function (next) {

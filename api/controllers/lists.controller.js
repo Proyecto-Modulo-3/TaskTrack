@@ -14,12 +14,8 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.viewLists = (req, res, next) => {
-  const { category } = req.params;
-
-  List.find({ category: category, owner: req.user._id })
-    .populate({
-      path: "owner",
-    })
+  List.find()
+    .populate('owner') //SOBRA??
     .then((list) => {
       if (list.length > 0) {
         res.status(200).json(list);
