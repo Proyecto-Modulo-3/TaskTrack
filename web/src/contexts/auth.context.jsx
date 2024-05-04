@@ -1,20 +1,28 @@
 import { createContext, useEffect, useState } from "react";
-import { login, getProfile } from "../services/api.service";
+import { login, getProfile, logout } from "../services/api.service";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   async function fetchProfile() {
-    const response = await getProfile();
-    setUser(response.data);
+    try {
+      const response = await getProfile();
+      setUser(response.data);
+    } catch (error) {
+      setUser(null);
+    }
   }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       fetchProfile();
+    } else {
+      setUser(null);
     }
   }, []);
 
@@ -23,9 +31,16 @@ export function AuthContextProvider({ children }) {
     fetchProfile();
   }
 
+  function doLogout() {
+    setUser(null);
+    logout();
+    navigate("/login");
+  }
+
   const value = {
     user,
     doLogin,
+    doLogout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

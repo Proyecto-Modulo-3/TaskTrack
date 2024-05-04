@@ -15,7 +15,7 @@ http.interceptors.response.use(
     if (
       error.response.status === 401 &&
       location.pathname !== "/login" &&
-      location.pathname !== "register"
+      location.pathname !== "/register"
     ) {
       localStorage.removeItem("token");
       window.location.replace("/login");
@@ -38,18 +38,18 @@ export function login(data) {
   });
 }
 
-// export function getProfile() {
-//     return http.get('/profile');
-// }
+export function getProfile() {
+  return http.get("/profile");
+}
 
-// export function logout() {
-//   localStorage.removeItem("token");
-// }
+export function logout() {
+  localStorage.removeItem("token");
+}
 
-// // LISTS
-// export function createList(data) {
-//   return http.post("/lists", data);
-// }
+// LISTS
+export function createList(data) {
+  return http.post("/lists", data);
+}
 
 // // TASKS
 

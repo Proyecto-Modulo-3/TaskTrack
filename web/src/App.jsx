@@ -1,22 +1,24 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import NavBar from "./components/ui/NavBar";
-// import SideBar from "./components/ui/SideBar";
+import Navbar from "./components/ui/NavBar";
+import Calendar from "./components/calendar/Calendar";
+import Board from "./pages/Board";
+
+
 
 function App() {
   return (
     <>
-    <NavBar />
+    <Navbar/>
     {/* Ocultar SideBar si no se ha iniciado sesión */}
-    {/* <SideBar /> */}
       <main>
         <Routes>
         {/* Una vista vacía de cómo se la app con botones register/login */}
-          <Route path="/" element={<Home />} /> 
+          <Route path="/board" element={<Board />} /> 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/calendar" element={<Calendar />} />
         </Routes>
       </main>
     </>

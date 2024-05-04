@@ -9,7 +9,7 @@ const listAuth = require('../middlewares/list.middleware');
 
 // USER
 router.post("/users", users.create);
-router.get("/login", users.login);
+router.post("/login", users.login);
 router.get("/profile", auth.checkAuth, users.profile);
 // router.post("/logout", auth.checkAuth, users.logout);
 router.patch("/users/:id", auth.checkAuth, users.update);
