@@ -1,15 +1,17 @@
 // import { Link } from "react-router-dom";
+import ListDetail from "../components/lists/ListDetail";
 import Sidebar from "../components/ui/SideBar";
 
 function Board() {
   return (
-    <>
-      <div>
-        <Sidebar />
-      </div>
-      <div>
-        <i className="fa fa-plus" aria-hidden="true"></i>
-      </div>
+      <>
+        <div className="d-flex">
+          <Sidebar />
+          <div>
+          <ListDetail />
+          </div>
+        </div>
+        
     </>
   );
 }

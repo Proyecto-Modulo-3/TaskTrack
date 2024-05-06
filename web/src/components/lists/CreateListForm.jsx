@@ -1,38 +1,34 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { createList } from "../../services/api.service";
-import { useNavigate } from "react-router-dom";
+import { CreateList } from "../../services/api.service";
 
 function CreateListForm() {
   const [error, setError] = useState(null);
-  const [list] = useState(null);
-  const navigate = useNavigate();
 
   const {
     register,
+    handleSubmit,
+    reset,
     formState: { errors },
-  } = useForm({
-    values: list,
-  });
+  } = useForm({ mode: "all" });
 
-  function handleCreateList(data) {
-    createList(data)
-      .then((list) => {
-        navigate(`lists/${list.id}`);
-      })
-      .catch((error) => {
-        setError(error.response.data.message);
-      });
-  }
+  const handleCreateList = async (data) => {
+    try {
+      await CreateList(data);
+      reset();
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
 
   return (
-    <div className="container">
+    <div className="mx-5">
       {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleCreateList}>
+      <form onSubmit={handleSubmit(handleCreateList)}>
         <div className="mb-3">
-          <label>Title</label>
+          <label className="d-flex justify-content-center">Title</label>
           <input
-            type="title"
+            type="text"
             id="title"
             className={`form-control ${errors.title ? "is-invalid" : ""}`}
             {...register("title", {
@@ -42,9 +38,9 @@ function CreateListForm() {
         </div>
 
         <div className="mb-3">
-          <label>Category</label>
+          <label className="d-flex justify-content-center">Category</label>
           <input
-            type="category"
+            type="text"
             id="category"
             className={`form-control ${errors.category ? "is-invalid" : ""}`}
             {...register("category", {

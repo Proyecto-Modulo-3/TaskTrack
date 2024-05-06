@@ -47,8 +47,16 @@ export function logout() {
 }
 
 // LISTS
-export function createList(data) {
+export function CreateList(data) {
   return http.post("/lists", data);
+}
+
+export function getLists(params) {
+  return http.get("/lists", { params });
+}
+
+export function listDetails(id) {
+  return http.get(`/lists/${id}`);
 }
 
 // // TASKS
