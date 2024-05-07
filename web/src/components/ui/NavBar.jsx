@@ -7,30 +7,40 @@ const renderNavLinkActive = ({ isActive }) =>
 
 function NavBar() {
   const { user, doLogout } = useContext(AuthContext);
+  const isCalendar = window.location.pathname === "/calendar";
+  const buttonText = isCalendar ? "Home" : "Calendar";
+
+  const handleClick = () => {
+    if (isCalendar) {
+      window.location.href = "/home";
+    }
+  };
 
   return (
     <nav className="main-navbar navbar navbar-expand-lg bg-body-tertiary">
       <div className="container">
-        <Link className="navbar-brand mb-0 h1" to={window.location.pathname}>
-          TaskTrack
-        </Link>
-
         <div className="collapse navbar-collapse" id="main-navbar">
           <ul className="navbar-nav mb-2 mb-lg-0">
-            {/* {!user && ( */}
-            <>
-              <li className="nav-item">
-                <NavLink className={renderNavLinkActive} to="/register">
-                  Register
-                </NavLink>
-              </li>
-              <li className="nav-item ">
-                <NavLink className={renderNavLinkActive} to="/login">
-                  Login
-                </NavLink>
-              </li>
-            </>
-            {/* )} */}
+            {!user && (
+              <>
+                <Link
+                  className="navbar-brand mb-0 h1"
+                  to={window.location.pathname}
+                >
+                  TaskTrack
+                </Link>
+                <li className="nav-item">
+                  <NavLink className={renderNavLinkActive} to="/register">
+                    Register
+                  </NavLink>
+                </li>
+                <li className="nav-item ">
+                  <NavLink className={renderNavLinkActive} to="/login">
+                    Login
+                  </NavLink>
+                </li>
+              </>
+            )}
             {user && (
               <>
                 <Link
@@ -40,8 +50,12 @@ function NavBar() {
                   TaskTrack
                 </Link>
                 <li className="nav-item">
-                  <NavLink className={renderNavLinkActive} to="/calendar">
-                    Calendar
+                  <NavLink
+                    className={renderNavLinkActive}
+                    to={isCalendar ? "/home" : "/calendar"}
+                    onClick={handleClick}
+                  >
+                    {buttonText}
                   </NavLink>
                 </li>
                 <li className="nav-item">

@@ -5,25 +5,31 @@ import { listDetails } from "../../services/api.service";
 
 function ListDetail() {
   const { id } = useParams();
-  const [list, setList] = useState();
+  const [details, setDetails] = useState(null);
 
   useEffect(() => {
     async function fetch() {
       try {
         const { data } = await listDetails(id);
-        setList(data);
+        setDetails(data);
       } catch (error) {
         console.log(error);
       }
     }
     fetch();
-  }, [id]);
-  
-  return list && (
+  }, []);
+
+  return (
+    // - Requerir todas las tasks de la lista
+    //   - Si hay -> Pintarlas
+    //   - Si no hay -> botón que abra un formulario para crearlas
+
     <div>
-      <h1>{list.title}</h1>
+      <button>Ad task</button>
     </div>
   );
 }
 
 export default ListDetail;
+
+// - onClick: función de get.lists.detail

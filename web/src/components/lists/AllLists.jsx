@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { getLists } from "../../services/api.service";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AllLists({ title, category }) {
   const [lists, setLists] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchLists() {
@@ -24,7 +25,14 @@ function AllLists({ title, category }) {
     <div>
       {lists.map((list) => (
         <div key={list.id}>
-          <Link className="text-decoration-none" to={`/lists/${list.id}`}>{list.title}</Link>
+          <button
+            key={list.id}
+            onClick={() => {
+              navigate(`/lists/${list.id}`);
+            }}
+          >
+            {list.title}
+          </button>
         </div>
       ))}
     </div>

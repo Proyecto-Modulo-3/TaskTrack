@@ -27,7 +27,7 @@ const Sidebar = () => {
         <CDBSidebarHeader>
           <div className="mx-5">
             <Link
-              to="/board"
+              to="/home"
               className="text-decoration-none"
               style={{ color: "inherit" }}
             >
@@ -55,7 +55,6 @@ const Sidebar = () => {
         </CDBSidebarHeader>
         <AllLists />
       </CDBSidebar>
-
     </div>
   );
 };

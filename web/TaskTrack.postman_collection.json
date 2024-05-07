@@ -1,0 +1,842 @@
+{
+	"info": {
+		"_postman_id": "41693592-aaea-4a27-86e8-5047e20a38c5",
+		"name": "TaskTrack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34172359"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"raul@example.com\",\r\n    \"username\": \"raul\",\r\n    \"name\": \"ironhacker\",\r\n    \"password\": 12345678,\r\n    \"location\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [0, 0]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseData = pm.response.json()\r",
+									"const bearer = responseData.accessToken\r",
+									"\r",
+									"if (bearer) {\r",
+									"    pm.collectionVariables.set(\"TOKEN_BEARER\", bearer)\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jesus@example.com\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/login",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"uuid": "8a22d5a0-e4a3-4842-99ca-674e35f4662c",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jesus@example.com\",\r\n    \"password\": 12345678\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/profile",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"uuid": "a5ffce3b-310a-4dc6-8e78-e60e9823b363",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jesus@example.com\",\r\n    \"password\": 12345678\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/663133104de3d29f07d7b3d9",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								"663133104de3d29f07d7b3d9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"uuid": "9c0b1030-ddd0-4751-bcfd-9421d9ecf967",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jesus@example.com\",\r\n    \"username\": \"raul\",\r\n    \"name\": \"ironhacker\",\r\n    \"password\": 12345678,\r\n    \"location\": {\r\n        \"type\": \"Point\",\r\n        \"coordinates\": [0, 0]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/66336cc236b57d0a887ade45",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								"66336cc236b57d0a887ade45"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lists",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Lista 1\",\r\n    \"category\":\"blue\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lists",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "f5cbd6a9-c663-4b59-887c-046767ca921a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"iturieotorewutire\",\r\n    \"category\":\"blue\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "8d1443fd-9c43-4404-aca0-954d9fe50ea3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "a1694f61-6112-415f-b5e5-b39fe64440fa"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Task 1\",\r\n    \"completed\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "748a0912-0035-4cbf-8754-b3f55f128176"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "2b22aed4-a2ed-43b4-9fc6-ba482281d877"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "440d303f-b5b4-4932-9632-58162f0ed01a"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "fda2f966-687f-4923-8e57-0c89e336398a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Task 2\",\r\n    \"list\": \"6633771b91230c18a855e272\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "428ac388-fc91-4c81-a4f1-63c63d69b22c"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "cf9a6382-bf49-4e3d-bc63-9e57f07a2cfc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "5221e2cf-2163-4849-9862-6610155b9eb2"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "6e6d0a1d-6539-41f0-954e-3331baad3f19"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Card 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId/cards",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId",
+								"cards"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "e8652296-a4cf-4ea6-8977-8edd797d4116"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "050c6017-edc9-4e9d-a432-499cba65082a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}//lists/:listId/tasks/:taskId/cards",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"",
+								"lists",
+								":listId",
+								"tasks",
+								":taskId",
+								"cards"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "a73340b4-2de3-472a-8a4e-93ea7adec17d"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "e083e6a0-1a63-460f-b2f0-81b779f1abfa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId/cards/:cardId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId",
+								"cards",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "c50279a7-6c21-4900-81ef-63672f2c3dc2"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "2abc07cc-af50-4ac7-82a0-cb5789e27cb4"
+								},
+								{
+									"key": "cardId",
+									"value": "6633fb04e9b4965978863674",
+									"uuid": "134e0cc7-ac3a-4e51-91c5-975c4a7a5c23"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Card 2\",\r\n    \"task\": \"66337a3c7e3edb2d9064e627\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId/cards/:cardId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId",
+								"cards",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "e1355c9b-95a8-481d-957b-faf5ed8e8225"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "f8ed3345-315d-4c81-b753-4f23efa5b9db"
+								},
+								{
+									"key": "cardId",
+									"value": "6633fb04e9b4965978863674",
+									"uuid": "269165f0-e51c-4892-a89d-0243b3b8d101"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/lists/:listId/tasks/:taskId/cards/:cardId",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"lists",
+								":listId",
+								"tasks",
+								":taskId",
+								"cards",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "listId",
+									"value": "6633fa69e9b496597886364a",
+									"uuid": "8a7acf7e-53df-447e-9544-873b76233e1a"
+								},
+								{
+									"key": "taskId",
+									"value": "6633faa8e9b496597886365d",
+									"uuid": "2dcf33af-6c04-4211-bb39-9a4fe761dd9a"
+								},
+								{
+									"key": "cardId",
+									"value": "6633fb04e9b4965978863674",
+									"uuid": "4807a581-b19f-4f3a-a2bb-f31aaa3d3f6d"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN_BEARER}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_API_URL",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN_BEARER",
+			"value": ""
+		}
+	]
+}
