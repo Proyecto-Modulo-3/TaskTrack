@@ -17,7 +17,7 @@ function CreateListForm() {
       await CreateList(data);
       reset();
     } catch (error) {
-      setError(error.response.data.message);
+      console.log(error);
     }
   };
 
