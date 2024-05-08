@@ -61,9 +61,9 @@ export function listDetails(id) {
 
 // // TASKS
 
-// export function createTask(data) {
-//   return http.post("lists/:listId/tasks", data);
-// }
+export function createTask(data) {
+  return http.post("lists/:listId/tasks", data);
+}
 
 // // CARDS
 

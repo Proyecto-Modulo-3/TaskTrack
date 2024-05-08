@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
 
 const renderNavLinkActive = ({ isActive }) =>
@@ -9,10 +9,13 @@ function NavBar() {
   const { user, doLogout } = useContext(AuthContext);
   const isCalendar = window.location.pathname === "/calendar";
   const buttonText = isCalendar ? "Home" : "Calendar";
+  const navigate = useNavigate()
 
+  console.log(user);
+  
   const handleClick = () => {
     if (isCalendar) {
-      window.location.href = "/home";
+      navigate("/home");
     }
   };
 

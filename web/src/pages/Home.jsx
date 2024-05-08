@@ -1,14 +1,12 @@
 // import { Link } from "react-router-dom";
-import ListDetail from "../components/lists/ListDetail";
-import Sidebar from "../components/ui/SideBar";
 import Board from "../components/board/Board";
+import Sidebar from "../components/ui/SideBar";
 
 function Home() {
   return (
     <>
       <div className="d-flex">
         <Sidebar />
-        <Board />
       </div>
     </>
   );

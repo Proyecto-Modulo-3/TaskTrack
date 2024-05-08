@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CreateList } from "../../services/api.service";
+import { useReloadContext } from "../../contexts/reload.context";
 
-function CreateListForm() {
-  const [error, setError] = useState(null);
+function CreateListForm({ lists, setLists }) {
+  const [error] = useState(null);
+  const { reload } = useReloadContext();
 
   const {
     register,
@@ -15,6 +17,7 @@ function CreateListForm() {
   const handleCreateList = async (data) => {
     try {
       await CreateList(data);
+      reload();
       reset();
     } catch (error) {
       console.log(error);

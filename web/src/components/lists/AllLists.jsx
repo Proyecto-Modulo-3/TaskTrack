@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getLists } from "../../services/api.service";
 import { useNavigate } from "react-router-dom";
+import { useReloadContext } from "../../contexts/reload.context";
 
 function AllLists({ title, category }) {
   const [lists, setLists] = useState([]);
   const navigate = useNavigate();
+  const { now } = useReloadContext();
+  const { reload } = useReloadContext();
 
   useEffect(() => {
     async function fetchLists() {
@@ -19,14 +22,13 @@ function AllLists({ title, category }) {
       }
     }
     fetchLists();
-  }, [title, category]);
+  }, [title, category, now]);
 
   return (
     <div>
       {lists.map((list) => (
         <div key={list.id}>
           <button
-            key={list.id}
             onClick={() => {
               navigate(`/lists/${list.id}`);
             }}

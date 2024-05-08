@@ -1,13 +1,11 @@
 import ListDetail from "../lists/ListDetail";
+import TasksForm from "../tasks/TasksForm";
 
 function Board() {
   return (
-    <>
-      <div className="d-flex">
-        <ListDetail />
-      </div>
-      
-    </>
+    <div className="d-flex">
+      <ListDetail />
+    </div>
   );
 }
 
