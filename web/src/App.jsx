@@ -4,8 +4,7 @@ import Register from "./pages/Register";
 import Navbar from "./components/ui/NavBar";
 import Calendar from "./components/calendar/Calendar";
 import Home from "./pages/Home";
-
-import TasksForm from "./components/tasks/TasksForm";
+import ListDetail from "./components/lists/ListDetail";
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/calendar" element={<Calendar />} />
-          <Route path="/lists/:id" element={<TasksForm />} />
+          <Route path="/lists/:id" element={<ListDetail />} />
         </Routes>
       </main>
     </>

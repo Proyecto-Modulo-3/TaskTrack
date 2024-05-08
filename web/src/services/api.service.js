@@ -26,7 +26,6 @@ http.interceptors.response.use(
 );
 
 // USERS
-
 export function createUser(data) {
   return http.post("/users", data);
 }
@@ -60,9 +59,16 @@ export function listDetails(id) {
 }
 
 // // TASKS
+export function createTask(id, data) {
+  return http.post(`lists/${id}/tasks`, data);
+}
 
-export function createTask(data) {
-  return http.post("lists/:listId/tasks", data);
+export function getTasks(params, id) {
+  return http.get(`/lists/${id}/tasks`, { params, id })
+}
+
+export function deleteTask(listId, taskId) {
+  return http.delete(`/lists/${listId}/tasks/${taskId}`);
 }
 
 // // CARDS

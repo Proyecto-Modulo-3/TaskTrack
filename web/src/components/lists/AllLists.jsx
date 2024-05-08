@@ -7,7 +7,6 @@ function AllLists({ title, category }) {
   const [lists, setLists] = useState([]);
   const navigate = useNavigate();
   const { now } = useReloadContext();
-  const { reload } = useReloadContext();
 
   useEffect(() => {
     async function fetchLists() {

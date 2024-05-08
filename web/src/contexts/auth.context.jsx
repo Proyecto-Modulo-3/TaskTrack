@@ -37,10 +37,16 @@ export function AuthContextProvider({ children }) {
     navigate("/login");
   }
 
+  function userId() {
+    const token = localStorage.getItem("token");
+    fetchProfile()
+  }
+
   const value = {
     user,
     doLogin,
     doLogout,
+    userId
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

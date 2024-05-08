@@ -1,6 +1,7 @@
 const List = require('../models/list.model');
 
 module.exports.ownedBy = (req, res, next) => {
+    console.log(req.params.listId)
     List.findById(req.params.listId)
         .then((list) => {
             if (!list) {
