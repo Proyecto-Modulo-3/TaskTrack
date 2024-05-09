@@ -39,7 +39,7 @@ const Sidebar = () => {
               align="start"
               positions={["right", "top", "bottom", "left"]}
               content={
-                <div className="mx-2">
+                <div className="form">
                   <button className="mx-5" onClick={() => setShowPop(!showPop)}>
                     <i className="fa fa-times"></i>
                   </button>

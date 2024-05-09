@@ -52,12 +52,14 @@ function ListDetail() {
       <div className="d-flex">
         <Sidebar />
         <div>
-          <div className="d-flex flex-column">
+          <div className="p-3 d-flex justify-content-between align-items-center">
+            <AllTasks listId={id} />
+            <div>
+            
+            </div>
+
             {show && (
               <>
-                <div>
-                  <AllTasks listId={id} />
-                </div>
                 <div>
                   <form onSubmit={handleSubmit(handleCreateTask)}>
                     <input
@@ -81,19 +83,16 @@ function ListDetail() {
                 </div>
               </>
             )}
+
             {!show && (
-              <>
-                <div className="d-flex flex-column">
-                  <AllTasks listId={id} />
+              <div>
                   <button
                     onClick={() => setShow(!show)}
-                    className="d-flex justify-content-start mt-1"
                   >
                     {" "}
                     + Add task
                   </button>
-                </div>
-              </>
+              </div>
             )}
           </div>
         </div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CreateList } from "../../services/api.service";
 import { useReloadContext } from "../../contexts/reload.context";
+import './CreateListForm.css'
 
 function CreateListForm({ lists, setLists }) {
   const [error] = useState(null);
@@ -51,10 +52,11 @@ function CreateListForm({ lists, setLists }) {
             })}
           />
         </div>
-
-        <button type="submit" className="btn btn-primary">
-          Create
-        </button>
+          <div className="d-flex justify-content-center">
+            <button type="submit" className="btn btn-primary">
+            Create
+            </button>
+          </div>
       </form>
     </div>
   );

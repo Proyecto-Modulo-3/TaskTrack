@@ -1,3 +1,5 @@
-#form {
-    background: black;
+.form {
+    background-color: #333;
+    color: white;
+    margin-left: 15px;
 }
