@@ -58,6 +58,10 @@ export function listDetails(id) {
   return http.get(`/lists/${id}`);
 }
 
+export function deleteList(id) {
+  return http.delete(`/lists/${id}`);
+}
+
 // // TASKS
 export function createTask(id, data) {
   return http.post(`lists/${id}/tasks`, data);

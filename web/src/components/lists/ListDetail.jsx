@@ -37,7 +37,6 @@ function ListDetail() {
 
   const handleCreateTask = async (data) => {
     try {
-      // const newTask = { title: taskTitle };
       await createTask(id, data);
       reload();
       reset();

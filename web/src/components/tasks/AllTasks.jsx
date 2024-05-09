@@ -4,8 +4,9 @@ import { getTasks, deleteTask } from "../../services/api.service";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
 import AddCard from "../cards/AddCard";
-import "./AllTasks.css"
+import "./AllTasks.css";
 import AllCards from "../cards/AllCards";
+import Card from "react-bootstrap/Card";
 
 function AllTasks({ listId, title }) {
   const [tasks, setTasks] = useState([]);
@@ -42,25 +43,26 @@ function AllTasks({ listId, title }) {
   };
 
   return (
-    <div className="d-flex justify-content-between">
-      {/* <pre>{tasks && JSON.stringify(tasks)}</pre> */}
+    <div className="d-flex flex-wrap justify-content-center">
       {tasks.map((task) => (
-        <div key={task.id}>
-            <div className="row m-1">
-              <div className="col-md-12">
-                <div className="card mb-2">
-                  <div className="card-body">
-                    <h5 className="card-title">{task.title}</h5>
-                    <button
-                      onClick={() => handleDeleteTask(task.id)}
-                      className="btn btn-danger me-3"
-                    ><i className="fa fa-trash" aria-hidden="true"></i></button>
-                    <div className="mx-5"><AllCards taskId={id}/></div>
-                    <AddCard />
-                  </div>
-                </div>
+        <div key={task.id} className="mx-2 mb-3">
+          <Card border="dark" style={{ width: "18rem" }}>
+            <Card.Body>
+              <Card.Title className="text-center">{task.title}</Card.Title>
+              <div>
+                <AllCards taskId={id} />
               </div>
-            </div>
+              <div className="d-flex justify-content-between align-items-center">
+                <AddCard />
+                <button
+                  onClick={() => handleDeleteTask(task.id)}
+                  className="btn btn-danger"
+                >
+                  <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </Card.Body>
+          </Card>
         </div>
       ))}
     </div>
