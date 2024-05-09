@@ -8,11 +8,11 @@ const renderNavLinkActive = ({ isActive }) =>
 function NavBar() {
   const { user, doLogout } = useContext(AuthContext);
   const isCalendar = window.location.pathname === "/calendar";
-  const buttonText = isCalendar ? "Home" : "Calendar";
-  const navigate = useNavigate()
+  const buttonText = isCalendar ? "Board" : "Calendar";
+  const navigate = useNavigate();
 
   console.log(user);
-  
+
   const handleClick = () => {
     if (isCalendar) {
       navigate("/home");

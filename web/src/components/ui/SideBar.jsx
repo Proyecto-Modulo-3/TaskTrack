@@ -1,10 +1,6 @@
 // import { useState } from "react";
 import { Popover } from "react-tiny-popover";
-import {
-  CDBSidebar,
-  // CDBSidebarFooter,
-  CDBSidebarHeader,
-} from "cdbreact";
+import { CDBSidebar, CDBSidebarHeader } from "cdbreact";
 import { useState } from "react";
 import CreateListForm from "../lists/CreateListForm";
 import { Link } from "react-router-dom";
