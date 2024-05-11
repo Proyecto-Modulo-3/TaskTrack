@@ -20,6 +20,7 @@ function CreateListForm({}) {
       await CreateList(data);
       reload();
       reset();
+      onClose();
     } catch (error) {
       console.log(error);
     }

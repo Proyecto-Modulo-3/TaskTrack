@@ -16,7 +16,6 @@ function AllCards({ taskId, title }) {
     async function fetchCards() {
       const query = {};
       if (id) query.id = id;
-      console.log(id);
       if (taskId) query.taskId = taskId;
       if (title) query.title = title;
       try {

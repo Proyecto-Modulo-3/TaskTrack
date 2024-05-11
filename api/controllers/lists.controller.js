@@ -14,7 +14,7 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.viewLists = (req, res, next) => {
-  List.find()
+  List.find({ owner: req.user.id })
     .populate('owner')
     .then((list) => {
       if (list.length > 0) {

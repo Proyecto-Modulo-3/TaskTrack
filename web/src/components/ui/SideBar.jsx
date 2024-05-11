@@ -1,17 +1,22 @@
 // import { useState } from "react";
 import { Popover } from "react-tiny-popover";
 import { CDBSidebar, CDBSidebarHeader } from "cdbreact";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CreateListForm from "../lists/CreateListForm";
 import { Link } from "react-router-dom";
 import AllLists from "../lists/AllLists";
+import AuthContext from "../../contexts/auth.context";
 
 const Sidebar = () => {
   const [showPop, setShowPop] = useState(false);
   const [lists, setLists] = useState([]);
+  const { user } = useContext(AuthContext);
+
+  const togglePopover = () => {
+    setShowPop(!showPop);
+  };
 
   const handleCreate = (data) => {
-    console.log(lists, data);
     setLists([...lists, { ...data }]);
   };
 
@@ -36,20 +41,24 @@ const Sidebar = () => {
               positions={["right", "top", "bottom", "left"]}
               content={
                 <div className="form">
-                  <button className="mx-5" onClick={() => setShowPop(!showPop)}>
+                  <button className="mx-5" onClick={togglePopover}>
                     <i className="fa fa-times"></i>
                   </button>
-                  <CreateListForm onCreate={handleCreate} />
+                  <CreateListForm
+                    // onCreate={handleCreate}
+                    onClose={togglePopover}
+                  />
                 </div>
               }
             >
-              <button className="mx-5" onClick={() => setShowPop(!showPop)}>
+              <button className="mx-5" onClick={togglePopover}>
                 <i className="fa fa-plus"></i>
               </button>
             </Popover>
           </div>
         </CDBSidebarHeader>
-        <AllLists />
+
+        <AllLists lists={lists.filter((list) => list.owner === user.id)} />
       </CDBSidebar>
     </div>
   );

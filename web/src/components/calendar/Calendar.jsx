@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -8,23 +8,38 @@ import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { getLists } from "../../services/api.service";
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [taskTitle, setTaskTitle] = useState("");
   const [events, setEvents] = useState([]);
+  const [lists, setLists] = useState([]);
+  const [selectedList, setSelectedList] = useState("");
+
+  useEffect(() => {
+    const fetchLists = async () => {
+      try {
+        const response = await getLists();
+        setLists(response.data);
+      } catch (error) {
+        console.error("Error fetching lists:", error);
+      }
+    };
+
+    fetchLists();
+  }, []);
 
   const handleDateClick = (info) => {
     setSelectedDate(info.dateStr);
   };
 
-  // Ver si podemos añadir la lógica del addTask del Board
-
   const handleAddTask = () => {
-    if (taskTitle && selectedDate) {
+    if (taskTitle && selectedDate && selectedList) {
       const newEvent = {
         title: taskTitle,
         start: selectedDate,
+        list: selectedList,
       };
 
       setEvents([...events, newEvent]);
@@ -44,6 +59,21 @@ function Calendar() {
               value={taskTitle}
               onChange={(e) => setTaskTitle(e.target.value)}
             />
+          </Form.Group>
+          <Form.Group controlId="listSelect">
+            <Form.Label>Select List</Form.Label>
+            <Form.Control
+              as="select"
+              value={selectedList}
+              onChange={(e) => setSelectedList(e.target.value)}
+            >
+              <option value="">Select a list</option>
+              {lists.map((list) => (
+                <option key={list.id} value={list.id}>
+                  {list.title}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
           <Button variant="primary" onClick={handleAddTask}>
             Add

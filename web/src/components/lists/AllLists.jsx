@@ -2,11 +2,13 @@ import { useEffect, useState, useContext } from "react";
 import { getLists, deleteList } from "../../services/api.service";
 import { useNavigate } from "react-router-dom";
 import { useReloadContext } from "../../contexts/reload.context";
+import AuthContext from "../../contexts/auth.context";
 
 function AllLists({ title, category }) {
   const [lists, setLists] = useState([]);
   const navigate = useNavigate();
   const { now } = useReloadContext();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     async function fetchLists() {
@@ -14,14 +16,18 @@ function AllLists({ title, category }) {
       if (title) query.title = title;
       if (category) query.category = category;
       try {
-        const { data: fetchLists } = await getLists(query);
-        setLists(fetchLists);
+        const { data: fetchedLists } = await getLists(query);
+        const listsOwnedBy = fetchedLists.map((list) => ({
+          ...list,
+          owner: list.owner.id,
+        }));
+        setLists(listsOwnedBy);
       } catch (error) {
         console.error(error);
       }
     }
     fetchLists();
-  }, [title, category, now]);
+  }, [title, category, now, user]);
 
   const handleDeleteList = async (listId) => {
     try {

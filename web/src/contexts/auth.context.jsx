@@ -39,7 +39,7 @@ export function AuthContextProvider({ children }) {
 
   function userId() {
     const token = localStorage.getItem("token");
-    fetchProfile()
+    fetchProfile();
   }
 
   const value = {

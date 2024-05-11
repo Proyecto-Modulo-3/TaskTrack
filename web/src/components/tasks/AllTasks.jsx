@@ -50,10 +50,10 @@ function AllTasks({ listId, title }) {
             <Card.Body>
               <Card.Title className="text-center">{task.title}</Card.Title>
               <div>
-                <AllCards taskId={id} />
+                <AllCards taskId={task.id} />
               </div>
               <div className="d-flex justify-content-between align-items-center">
-                <AddCard />
+                <AddCard taskId={task.id} />
                 <button
                   onClick={() => handleDeleteTask(task.id)}
                   className="btn btn-danger"

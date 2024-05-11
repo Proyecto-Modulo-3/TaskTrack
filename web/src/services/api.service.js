@@ -50,8 +50,8 @@ export function CreateList(data) {
   return http.post("/lists", data);
 }
 
-export function getLists(params) {
-  return http.get("/lists", { params });
+export function getLists() {
+  return http.get("/lists");
 }
 
 export function listDetails(id) {
@@ -68,7 +68,7 @@ export function createTask(id, data) {
 }
 
 export function getTasks(params, id) {
-  return http.get(`/lists/${id}/tasks`, { params, id })
+  return http.get(`/lists/${id}/tasks`)
 }
 
 export function deleteTask(listId, taskId) {
@@ -82,5 +82,5 @@ export function createCard(listId, taskId, data) {
 }
 
 export function getCards(listId, taskId, params) {
-  return http.get(`/lists/${listId}/tasks/${taskId}/cards`, { params, listId, taskId})
+  return http.get(`/lists/${listId}/tasks/${taskId}/cards`)
 }

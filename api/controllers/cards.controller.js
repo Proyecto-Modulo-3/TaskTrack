@@ -14,7 +14,7 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.viewCards = (req, res, next) => {
-  Card.find()
+  Card.find({ task: req.params.taskId })
     .then((card) => {
       if (card.length > 0) {
         res.status(200).json(card);
