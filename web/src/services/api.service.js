@@ -58,6 +58,10 @@ export function listDetails(id) {
   return http.get(`/lists/${id}`);
 }
 
+export function editList(id, body) {
+  return http.patch(`/lists/${id}`, body);
+}
+
 export function deleteList(id) {
   return http.delete(`/lists/${id}`);
 }
@@ -69,6 +73,10 @@ export function createTask(id, data) {
 
 export function getTasks(params, id) {
   return http.get(`/lists/${id}/tasks`)
+}
+
+export function editTask(listId, taskId, body) {
+return http.patch(`/lists/${listId}/tasks/${taskId}`, body)
 }
 
 export function deleteTask(listId, taskId) {
@@ -85,6 +93,10 @@ export function getCards(listId, taskId) {
   return http.get(`/lists/${listId}/tasks/${taskId}/cards`)
 }
 
+export function editCard(listId, taskId, cardId, body) {
+  return http.patch(`/lists/${listId}/tasks/${taskId}/cards/${cardId}`, body);
+}
+
 export function deleteCards(listId, taskId, cardId) {
-  return http.delete(`lists/${listId}/tasks/${taskId}/cards/${cardId}`)
+  return http.delete(`/lists/${listId}/tasks/${taskId}/cards/${cardId}`)
 }

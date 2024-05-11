@@ -6,7 +6,7 @@ import Sidebar from "../ui/SideBar";
 import { useForm } from "react-hook-form";
 import AllTasks from "../tasks/AllTasks";
 
-function ListDetail() {
+function ListDetail({ title }) {
   const { id } = useParams();
   const { reload } = useReloadContext();
   const [details, setDetails] = useState(null);
@@ -53,10 +53,9 @@ function ListDetail() {
       <div className="d-flex">
         <Sidebar />
         <div>
+          {/* <div>{details.title}</div> */}
           <div className="p-3 d-flex justify-content-between align-items-center">
             <AllTasks listId={id} />
-            <div></div>
-
             {show && (
               <>
                 <div>

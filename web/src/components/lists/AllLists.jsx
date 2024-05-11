@@ -1,11 +1,13 @@
-import { useEffect, useState, useContext } from "react";
-import { getLists, deleteList } from "../../services/api.service";
+import React, { useEffect, useState, useContext } from "react";
+import { getLists, deleteList, editList } from "../../services/api.service";
 import { useNavigate } from "react-router-dom";
 import { useReloadContext } from "../../contexts/reload.context";
 import AuthContext from "../../contexts/auth.context";
 
 function AllLists({ title, category }) {
   const [lists, setLists] = useState([]);
+  const [editingListId, setEditingListId] = useState(null);
+  const [editedTitle, setEditedTitle] = useState("");
   const navigate = useNavigate();
   const { now, reload } = useReloadContext();
   const { user } = useContext(AuthContext);
@@ -39,23 +41,60 @@ function AllLists({ title, category }) {
     }
   };
 
+  const handleEditList = async (listId) => {
+    try {
+      await editList(listId, { title: editedTitle });
+      setEditingListId(null);
+      setEditedTitle("");
+      reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setEditedTitle(event.target.value);
+  };
+
   return (
     <div>
       {lists.map((list) => (
         <div key={list.id}>
-          <button
-            onClick={() => {
-              navigate(`/lists/${list.id}`);
-            }}
-          >
-            {list.title}
-          </button>
-          <button
-            onClick={() => handleDeleteList(list.id)}
-            className="btn btn-danger"
-          >
-            <i className="fa fa-trash" aria-hidden="true"></i>
-          </button>
+          {editingListId === list.id ? (
+            <div>
+              <input
+                type="text"
+                value={editedTitle}
+                onChange={handleInputChange}
+              />
+              <button onClick={() => handleEditList(list.id)}>Save</button>
+            </div>
+          ) : (
+            <div>
+              <button
+                onClick={() => {
+                  navigate(`/lists/${list.id}`);
+                }}
+              >
+                {list.title}
+              </button>
+              <button
+                onClick={() => handleDeleteList(list.id)}
+                className="btn btn-danger"
+              >
+                <i className="fa fa-trash" aria-hidden="true"></i>
+              </button>
+              <button
+                onClick={() => {
+                  setEditingListId(list.id);
+                  setEditedTitle(list.title);
+                }}
+                className="btn btn-primary"
+              >
+                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </button>
+            </div>
+          )}
         </div>
       ))}
     </div>

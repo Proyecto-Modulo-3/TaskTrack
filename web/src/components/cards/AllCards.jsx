@@ -2,12 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useReloadContext } from "../../contexts/reload.context";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
-import { getCards, deleteCards } from "../../services/api.service";
+import { getCards, deleteCards, editCard } from "../../services/api.service";
 import Card from "react-bootstrap/Card";
 
 function AllCards({ taskId, title }) {
   const [cards, setCards] = useState([]);
-  const { now } = useReloadContext();
+  const [editedCardId, setEditedCardId] = useState(null);
+  const [editedCardText, setEditedCardText] = useState("");
+  const { now, reload } = useReloadContext();
   const { id } = useParams();
 
   const { userId } = useContext(AuthContext);
@@ -34,25 +36,41 @@ function AllCards({ taskId, title }) {
 
   const handleDeleteCard = async (cardId) => {
     try {
-      await handleDeleteCard(id, taskId);
-      setTasks((prevCards) => prevCards.filter((card) => card.id !== cardId));
+      await deleteCards(id, taskId, cardId);
+      setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
     } catch (error) {
       console.error(error);
     }
   };
 
+  // const handleEditCard = async (cardId) => {
+  //   try {
+  //     await editCard(listId, taskId, cardId, { text: editedCardText });
+  //     editedCardId(null);
+  //     setEditedCardText("");
+  //     reload();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+
+  //   const handleInputChange = (event) => {
+  //     setEditedCardTitle(event.target.value);
+  //   };
+
   return (
     <div className="d-flex flex-column">
       {/* <pre>{tasks && JSON.stringify(tasks)}</pre> */}
       {cards.map((card) => (
-        <div key={card.id} style={{ marginBottom:'10px'}}>
+        <div key={card.id} style={{ marginBottom: "10px" }}>
           <Card border="dark" style={{ width: "15rem" }}>
             <Card.Body>
               <Card.Title className="text-center">{card.text}</Card.Title>
-              {/* <button
-                      onClick={() => handleDeleteCard(card.id)}
-                      className="btn btn-danger me-3"
-                    ><i className="fa fa-trash" aria-hidden="true"></i></button> */}
+              <button
+                onClick={() => handleDeleteCard(card.id)}
+                className="btn btn-danger me-3"
+              >
+                <i className="fa fa-trash" aria-hidden="true"></i>
+              </button>
             </Card.Body>
           </Card>
         </div>
