@@ -7,7 +7,7 @@ import AuthContext from "../../contexts/auth.context";
 function AllLists({ title, category }) {
   const [lists, setLists] = useState([]);
   const navigate = useNavigate();
-  const { now } = useReloadContext();
+  const { now, reload } = useReloadContext();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -27,12 +27,13 @@ function AllLists({ title, category }) {
       }
     }
     fetchLists();
-  }, [title, category, now, user]);
+  }, [title, category, now, user, reload]);
 
   const handleDeleteList = async (listId) => {
     try {
       await deleteList(listId);
       setLists((prevLists) => prevLists.filter((list) => list.id !== listId));
+      reload();
     } catch (error) {
       console.error(error);
     }

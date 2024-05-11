@@ -15,7 +15,9 @@ const Sidebar = () => {
   const togglePopover = () => {
     setShowPop(!showPop);
   };
-
+  const handleClosePopover = () => {
+    setShowPop(false);
+  };
 
   return (
     <div
@@ -41,10 +43,7 @@ const Sidebar = () => {
                   <button className="mx-5" onClick={togglePopover}>
                     <i className="fa fa-times"></i>
                   </button>
-                  <CreateListForm
-                    // onCreate={handleCreate}
-                    onClose={togglePopover}
-                  />
+                  <CreateListForm onClose={handleClosePopover} />
                 </div>
               }
             >

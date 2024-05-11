@@ -81,6 +81,10 @@ export function createCard(listId, taskId, data) {
   return http.post(`/lists/${listId}/tasks/${taskId}/cards`, data);
 }
 
-export function getCards(listId, taskId, params) {
+export function getCards(listId, taskId) {
   return http.get(`/lists/${listId}/tasks/${taskId}/cards`)
+}
+
+export function deleteCards(listId, taskId, cardId) {
+  return http.delete(`lists/${listId}/tasks/${taskId}/cards/${cardId}`)
 }

@@ -1,5 +1,3 @@
-// OPCION 1
-// Pillar las tasks de la lista (TaskDetail.jsx)
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { listDetails, createTask } from "../../services/api.service";
@@ -15,7 +13,6 @@ function ListDetail() {
   const [error, setError] = useState(null);
   const [taskTitle, setTaskTitle] = useState("");
   const [show, setShow] = useState(false);
-
   const {
     register,
     handleSubmit,
@@ -40,10 +37,15 @@ function ListDetail() {
       await createTask(id, data);
       reload();
       reset();
+      setShow(false);
     } catch (error) {
       setError("No list selected");
       console.log(error);
     }
+  };
+
+  const handleClose = async () => {
+    setShow(false);
   };
 
   return (
@@ -53,9 +55,7 @@ function ListDetail() {
         <div>
           <div className="p-3 d-flex justify-content-between align-items-center">
             <AllTasks listId={id} />
-            <div>
-            
-            </div>
+            <div></div>
 
             {show && (
               <>
@@ -76,7 +76,7 @@ function ListDetail() {
                     />
                     <div>
                       <button type="submit">Add task</button>
-                      <button onClick={() => setShow(!show)}>Close</button>
+                      <button onClick={handleClose}>Close</button>
                     </div>
                   </form>
                 </div>
@@ -85,12 +85,7 @@ function ListDetail() {
 
             {!show && (
               <div>
-                  <button
-                    onClick={() => setShow(!show)}
-                  >
-                    {" "}
-                    + Add task
-                  </button>
+                <button onClick={() => setShow(!show)}> + Add task</button>
               </div>
             )}
           </div>

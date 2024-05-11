@@ -24,10 +24,15 @@ function AddCard({ taskId }) {
       await createCard(id, taskId, data);
       reload();
       reset();
+      setShow(false);
     } catch (error) {
       setError("No list selected");
       console.log(error);
     }
+  };
+
+  const handleClose = async () => {
+    setShow(false);
   };
 
   return (
@@ -48,7 +53,7 @@ function AddCard({ taskId }) {
               />
               <div>
                 <button type="submit">Add card</button>
-                <button onClick={() => setShow(!show)}>Close</button>
+                <button onClick={handleClose}>Close</button>
               </div>
             </form>
           </div>
