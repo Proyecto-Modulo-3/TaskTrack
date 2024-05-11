@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useReloadContext } from "../../contexts/reload.context";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
-import { getCards } from "../../services/api.service";
+import { getCards, deleteCards } from "../../services/api.service";
 import Card from "react-bootstrap/Card";
 
 function AllCards({ taskId, title }) {
@@ -29,16 +29,24 @@ function AllCards({ taskId, title }) {
         setCards([]);
       }
     }
-    // Así solo se llaman si existe un userId
     if (userId) fetchCards();
   }, [id, taskId, title, now, userId]);
 
+  const handleDeleteCard = async (cardId) => {
+    try {
+      await handleDeleteCard(id, taskId);
+      setTasks((prevCards) => prevCards.filter((card) => card.id !== cardId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex flex-column">
       {/* <pre>{tasks && JSON.stringify(tasks)}</pre> */}
       {cards.map((card) => (
-        <div key={card.id}>
-          <Card border="dark" style={{ width: "18rem" }}>
+        <div key={card.id} style={{ marginBottom: "10px" }}>
+          <Card border="dark" style={{ width: "15rem" }}>
             <Card.Body>
               <Card.Title className="text-center">{card.text}</Card.Title>
               {/* <button

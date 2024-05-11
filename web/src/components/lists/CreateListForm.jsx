@@ -4,8 +4,8 @@ import { CreateList } from "../../services/api.service";
 import { useReloadContext } from "../../contexts/reload.context";
 import "./CreateListForm.css";
 
-function CreateListForm({}) {
-  const [error] = useState(null);
+function CreateListForm({ onClose }) {
+  const [error, setError] = useState(null);
   const { reload } = useReloadContext();
 
   const {
@@ -22,7 +22,7 @@ function CreateListForm({}) {
       reset();
       onClose();
     } catch (error) {
-      console.log(error);
+      setError(error.message);
     }
   };
 

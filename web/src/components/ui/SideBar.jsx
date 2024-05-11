@@ -16,8 +16,8 @@ const Sidebar = () => {
     setShowPop(!showPop);
   };
 
-  const handleCreate = (data) => {
-    setLists([...lists, { ...data }]);
+  const handleClosePopover = () => {
+    setShowPop(false);
   };
 
   return (
@@ -44,10 +44,7 @@ const Sidebar = () => {
                   <button className="mx-5" onClick={togglePopover}>
                     <i className="fa fa-times"></i>
                   </button>
-                  <CreateListForm
-                    // onCreate={handleCreate}
-                    onClose={togglePopover}
-                  />
+                  <CreateListForm onClose={handleClosePopover} />
                 </div>
               }
             >
