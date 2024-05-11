@@ -46,7 +46,7 @@ function AllTasks({ listId, title }) {
     <div className="m-2 d-flex justify-content-center">
       {tasks.map((task) => (
         <div key={task.id}>
-          <Card border="dark" style={{ width: "20rem", margin: "5px" }}>
+          <Card border="dark" style={{ width: "20rem", margin:'5px' }}>
             <Card.Body>
               <Card.Title className="text-center">{task.title}</Card.Title>
               <Card.Header>

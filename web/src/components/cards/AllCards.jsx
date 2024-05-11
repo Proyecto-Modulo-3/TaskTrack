@@ -45,7 +45,7 @@ function AllCards({ taskId, title }) {
     <div className="d-flex flex-column">
       {/* <pre>{tasks && JSON.stringify(tasks)}</pre> */}
       {cards.map((card) => (
-        <div key={card.id} style={{ marginBottom: "10px" }}>
+        <div key={card.id} style={{ marginBottom:'10px'}}>
           <Card border="dark" style={{ width: "15rem" }}>
             <Card.Body>
               <Card.Title className="text-center">{card.text}</Card.Title>

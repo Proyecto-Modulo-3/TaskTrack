@@ -15,7 +15,6 @@ const Sidebar = () => {
   const togglePopover = () => {
     setShowPop(!showPop);
   };
-
   const handleClosePopover = () => {
     setShowPop(false);
   };
