@@ -43,15 +43,15 @@ function AllTasks({ listId, title }) {
   };
 
   return (
-    <div className="d-flex flex-wrap justify-content-center">
+    <div className="m-2 d-flex justify-content-center">
       {tasks.map((task) => (
-        <div key={task.id} className="mx-2 mb-3">
-          <Card border="dark" style={{ width: "18rem" }}>
+        <div key={task.id}>
+          <Card border="dark" style={{ width: "20rem", margin:'5px' }}>
             <Card.Body>
               <Card.Title className="text-center">{task.title}</Card.Title>
-              <div>
+              <Card.Header>
                 <AllCards taskId={task.id} />
-              </div>
+              </Card.Header>
               <div className="d-flex justify-content-between align-items-center">
                 <AddCard taskId={task.id} />
                 <button

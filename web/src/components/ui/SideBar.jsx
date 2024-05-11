@@ -16,9 +16,6 @@ const Sidebar = () => {
     setShowPop(!showPop);
   };
 
-  const handleCreate = (data) => {
-    setLists([...lists, { ...data }]);
-  };
 
   return (
     <div
