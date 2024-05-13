@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useReloadContext } from "../../contexts/reload.context";
 import {
-  listDetails,
   getTasks,
   deleteTask,
   editTask,
