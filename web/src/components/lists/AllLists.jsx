@@ -71,7 +71,7 @@ function AllLists({ title, category }) {
               <button onClick={() => handleEditList(list.id)}>Save</button>
             </div>
           ) : (
-            <div className="d-flex mx-2 mt-2 align-items-center">
+            <div className="d-flex justify-content-between mx-2 mt-2 align-items-center">
               <div style={{ backgroundColor: list.color, padding: '10px', marginRight: '5px', borderRadius: '5px', width: '35px', height: '35px' }}></div>
               <button
                 onClick={() => {
@@ -80,21 +80,14 @@ function AllLists({ title, category }) {
               >
                 {list.title}
               </button>
-              <button
-                onClick={() => handleDeleteList(list.id)}
-                className="btn btn-danger"
-              >
-                <i className="fa fa-trash" aria-hidden="true"></i>
-              </button>
-              <button
-                onClick={() => {
-                  setEditingListId(list.id);
-                  setEditedTitle(list.title);
-                }}
-                className="btn btn-primary"
-              >
-                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
-              </button>
+              <div className="d-flex">
+                <i style={{ cursor: "pointer" }} onClick={() => handleDeleteList(list.id)} className="fa fa-trash m-2" aria-hidden="true"></i>
+                <i style={{ cursor: "pointer" }} onClick={() => {setEditingListId(list.id); setEditedTitle(list.title);}} className="fa fa-pencil-square-o m-2" aria-hidden="true"></i>
+
+              </div>
+              
+              
+              
             </div>
           )}
           </div>
