@@ -43,13 +43,13 @@ function CreateListForm({ onClose }) {
         </div>
 
         <div className="mb-3">
-          <label className="d-flex justify-content-center">Colour</label>
+          <label className="d-flex justify-content-center">Color</label>
           <input
-            type="text"
-            id="category"
-            className={`form-control ${errors.category ? "is-invalid" : ""}`}
-            {...register("category", {
-              required: "Category is required",
+            type="color"
+            id="color"
+            className={`form-control ${errors.color ? "is-invalid" : ""}`}
+            {...register("color", {
+              required: "Color is required",
             })}
           />
         </div>

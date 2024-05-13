@@ -60,6 +60,7 @@ function AllLists({ title, category }) {
     <div>
       {lists.map((list) => (
         <div key={list.id}>
+        
           {editingListId === list.id ? (
             <div>
               <input
@@ -70,7 +71,8 @@ function AllLists({ title, category }) {
               <button onClick={() => handleEditList(list.id)}>Save</button>
             </div>
           ) : (
-            <div>
+            <div className="d-flex mx-2 mt-2 align-items-center">
+              <div style={{ backgroundColor: list.color, padding: '10px', marginRight: '5px', borderRadius: '5px', width: '35px', height: '35px' }}></div>
               <button
                 onClick={() => {
                   navigate(`/lists/${list.id}`);
@@ -95,7 +97,7 @@ function AllLists({ title, category }) {
               </button>
             </div>
           )}
-        </div>
+          </div>
       ))}
     </div>
   );

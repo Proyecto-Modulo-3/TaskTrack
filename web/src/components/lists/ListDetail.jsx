@@ -5,8 +5,9 @@ import { useReloadContext } from "../../contexts/reload.context";
 import Sidebar from "../ui/SideBar";
 import { useForm } from "react-hook-form";
 import AllTasks from "../tasks/AllTasks";
+import './ListDetail.css'
 
-function ListDetail({ title }) {
+function ListDetail() {
   const { id } = useParams();
   const { reload } = useReloadContext();
   const [details, setDetails] = useState(null);
@@ -49,16 +50,20 @@ function ListDetail({ title }) {
   };
 
   return (
-    <>
-      <div className="d-flex">
-        <Sidebar />
-        <div>
-          {/* <div>{details.title}</div> */}
-          <div className="p-3 d-flex justify-content-between align-items-center">
+<>
+    <div className="d-flex">
+      <Sidebar />
+      <div>
+        <div className="">
+            {details && (
+              <div className="list-title">
+                <h2>{details.title}</h2>
+              </div>
+            )}
             <AllTasks listId={id} />
             {show && (
               <>
-                <div>
+                <div className="mx-5 d-flex justify-content-between align-items-center">
                   <form onSubmit={handleSubmit(handleCreateTask)}>
                     <input
                       type="text"
@@ -83,14 +88,15 @@ function ListDetail({ title }) {
             )}
 
             {!show && (
-              <div>
+              <div className="mx-5 d-flex justify-content-between align-items-center">
                 <button onClick={() => setShow(!show)}> + Add task</button>
               </div>
             )}
-          </div>
         </div>
       </div>
-    </>
+    </div>
+  </>
+
   );
 }
 
