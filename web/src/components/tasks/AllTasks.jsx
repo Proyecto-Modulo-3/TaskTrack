@@ -63,6 +63,10 @@ function AllTasks({ listId, title }) {
     setTasks(updatedTasks);
   };
 
+  const handleCardDragEnd = (listId, event) => {
+    console.log(listId, event, event.cardId, event.target.getAttribute("id"));
+  };
+
   return (
     <div className="m-2 d-flex justify-content-center">
       {tasks.map((task) => (
@@ -84,7 +88,7 @@ function AllTasks({ listId, title }) {
                   </button>
                 </div>
               ) : (
-                <div>
+                <div onDragEnd={(event) => handleCardDragEnd(listId, event)}>
                   <Card.Title
                     className="text-center title-cursor"
                     onClick={() => setEditedTaskId(task.id)}

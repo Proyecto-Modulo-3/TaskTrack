@@ -15,9 +15,8 @@ const taskSchema = new Schema(
       required: true,
       ref: "List",
     },
-    completed: {
-      type: Boolean,
-      default: false,
+    date: {
+      type: Date,
     }
   },
   {

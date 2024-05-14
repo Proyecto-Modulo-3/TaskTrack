@@ -78,6 +78,17 @@ function ListDetail() {
                         required: "Title is required",
                       })}
                     />
+                    <input
+                      type="date"
+                      id="date"
+                      name="date"
+                      className={`form-control ${
+                        errors.date ? "is-invalid" : ""
+                      }`}
+                      {...register("date", {
+                        required: "Date is required",
+                      })}
+                    />
                     <div>
                       <button type="submit">Add task</button>
                       <button onClick={handleClose}>Close</button>

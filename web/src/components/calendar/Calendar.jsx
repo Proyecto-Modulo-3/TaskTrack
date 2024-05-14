@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -8,7 +8,7 @@ import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { getLists, createTask } from "../../services/api.service";
+import { getLists, createTask, getTasks } from "../../services/api.service";
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -30,6 +30,31 @@ function Calendar() {
     fetchLists();
   }, []);
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const events = [];
+        for (const list of lists) {
+          const { data: tasks } = await getTasks(null, list.id);
+          for (const task of tasks) {
+            events.push({
+              title: task.title,
+              date: task.date,
+              list: list.id,
+              color: list.color,
+            });
+          }
+        }
+        console.log(events);
+        setEvents(events);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+
+    fetchEvents();
+  }, [lists]);
+
   const handleDateClick = (info) => {
     setSelectedDate(info.dateStr);
   };
@@ -39,13 +64,14 @@ function Calendar() {
       try {
         await createTask(selectedList, {
           title: taskTitle,
-          start: selectedDate,
+          date: selectedDate,
         });
 
         const newEvent = {
           title: taskTitle,
-          start: selectedDate,
+          date: selectedDate,
           list: selectedList,
+          color: lists.find((list) => list.id === selectedList).color,
         };
         setEvents([...events, newEvent]);
 
@@ -86,6 +112,15 @@ function Calendar() {
               ))}
             </Form.Control>
           </Form.Group>
+          <Form.Group controlId="taskDate">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Select a date to finish your task"
+              value={selectedDate}
+              onChange={(e) => setTaskDate(e.target.value)}
+            />
+          </Form.Group>
           <Button variant="primary" onClick={handleAddTask}>
             Add
           </Button>
@@ -110,6 +145,7 @@ function Calendar() {
             height={"90vh"}
             selectable={true}
             dateClick={handleDateClick}
+            events={events}
           />
           {selectedDate && (
             <div style={{ marginTop: "20px" }}>

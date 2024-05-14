@@ -42,56 +42,55 @@ function AllCards({ taskId, title }) {
   };
 
   const handleDragStart = (e, cardId) => {
+    e.cardId = cardId;
+    console.log(e);
     setDragging(true);
     setDraggedCardId(cardId);
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
-
   };
 
   const handleDrop = async (e, targetTaskId, cardId) => {
     e.preventDefault();
-  
+
     try {
       if (targetTaskId !== taskId) {
         await editCard(id, taskId, cardId, { taskId: targetTaskId });
-  
+
         const updatedCards = cards.filter((card) => card.id !== cardId);
         const draggedCard = cards.find((card) => card.id === cardId);
-        const updatedTaskCards = [...updatedCards, { ...draggedCard, taskId: targetTaskId }];
-  
+        const updatedTaskCards = [
+          ...updatedCards,
+          { ...draggedCard, taskId: targetTaskId },
+        ];
+
         setCards(updatedTaskCards);
       }
     } catch (error) {
       console.error("Error dropping card:", error);
     }
-  
+
     setDragging(false);
     setDraggedCardId(null);
   };
-
-
 
   return (
     <div className="d-flex flex-column">
       {cards.map((card) => (
         <div
           key={card.id}
+          id={card.id}
           style={{ marginBottom: "10px" }}
           draggable
           onDragStart={(e) => handleDragStart(e, card.id)}
-          onDragOver={(e) => handleDragOver(e)}
           onDrop={(e) => handleDrop(e, taskId)}
         >
           <Card border="dark" style={{ width: "15rem" }}>
             <Card.Body>
               <Card.Title className="text-center">{card.text}</Card.Title>
-              <button
-                onClick={() => handleDeleteCard(card.id)}
-                className="btn btn-danger me-3"
-              >
+              <button onClick={() => handleDeleteCard(card.id)} className="btn">
                 <i className="fa fa-trash" aria-hidden="true"></i>
               </button>
             </Card.Body>

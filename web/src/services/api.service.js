@@ -72,11 +72,11 @@ export function createTask(id, data) {
 }
 
 export function getTasks(params, id) {
-  return http.get(`/lists/${id}/tasks`)
+  return http.get(`/lists/${id}/tasks`, params);
 }
 
 export function editTask(listId, taskId, body) {
-return http.patch(`/lists/${listId}/tasks/${taskId}`, body)
+return http.patch(`/lists/${listId}/tasks/${taskId}`, body);
 }
 
 export function deleteTask(listId, taskId) {
