@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useReloadContext } from "../../contexts/reload.context";
-import {
-  getTasks,
-  deleteTask,
-  editTask,
-} from "../../services/api.service";
+import { getTasks, deleteTask, editTask } from "../../services/api.service";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
 import AddCard from "../cards/AddCard";
@@ -15,7 +11,6 @@ import Card from "react-bootstrap/Card";
 function AllTasks({ listId, title }) {
   const [tasks, setTasks] = useState([]);
   const [editedTaskId, setEditedTaskId] = useState(null);
-  const [editedTaskTitle, setEditedTaskTitle] = useState("");
   const { now, reload } = useReloadContext();
   const { id } = useParams();
 
@@ -29,7 +24,9 @@ function AllTasks({ listId, title }) {
       try {
         if (userId) {
           const { data: fetchTasks } = await getTasks(query, id);
-          setTasks(fetchTasks);
+          setTasks(
+            fetchTasks.map((task) => ({ ...task, editedTitle: task.title }))
+          );
         }
       } catch (error) {
         console.error(error);
@@ -50,17 +47,20 @@ function AllTasks({ listId, title }) {
 
   const handleEditTask = async (taskId) => {
     try {
-      await editTask(listId, taskId, { title: editedTaskTitle });
+      const taskToUpdate = tasks.find((task) => task.id === taskId);
+      await editTask(listId, taskId, { title: taskToUpdate.editedTitle });
       setEditedTaskId(null);
-      setEditedTaskTitle("");
       reload();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleInputChange = (event) => {
-    setEditedTaskTitle(event.target.value);
+  const handleInputChange = (event, taskId) => {
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, editedTitle: event.target.value } : task
+    );
+    setTasks(updatedTasks);
   };
 
   return (
@@ -73,8 +73,8 @@ function AllTasks({ listId, title }) {
                 <div className="d-flex flex-column gap-2 text-center">
                   <input
                     type="text"
-                    value={editedTaskTitle}
-                    onChange={handleInputChange}
+                    value={task.editedTitle}
+                    onChange={(event) => handleInputChange(event, task.id)}
                   />
                   <button
                     className="btn btn-success"
@@ -98,9 +98,9 @@ function AllTasks({ listId, title }) {
                     <AddCard taskId={task.id} />
                     <button
                       onClick={() => handleDeleteTask(task.id)}
-                      className="btn btn-danger"
+                      className="btn"
                     >
-                      <i className="fa fa-trash" aria-hidden="true"></i>
+                      <i className="fa fa-trash m-2" aria-hidden="true"></i>
                     </button>
                   </div>
                 </div>

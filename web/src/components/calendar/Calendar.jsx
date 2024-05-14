@@ -8,7 +8,7 @@ import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { getLists } from "../../services/api.service";
+import { getLists, createTask } from "../../services/api.service";
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -34,16 +34,27 @@ function Calendar() {
     setSelectedDate(info.dateStr);
   };
 
-  const handleAddTask = () => {
+  const handleAddTask = async () => {
     if (taskTitle && selectedDate && selectedList) {
-      const newEvent = {
-        title: taskTitle,
-        start: selectedDate,
-        list: selectedList,
-      };
+      try {
+        await createTask(selectedList, {
+          title: taskTitle,
+          start: selectedDate,
+        });
 
-      setEvents([...events, newEvent]);
-      setTaskTitle("");
+        const newEvent = {
+          title: taskTitle,
+          start: selectedDate,
+          list: selectedList,
+        };
+        setEvents([...events, newEvent]);
+
+        setTaskTitle("");
+        setSelectedDate(null);
+        setSelectedList("");
+      } catch (error) {
+        console.error("Error creating task:", error);
+      }
     }
   };
 

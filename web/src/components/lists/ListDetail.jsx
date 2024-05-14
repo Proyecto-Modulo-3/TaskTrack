@@ -5,7 +5,7 @@ import { useReloadContext } from "../../contexts/reload.context";
 import Sidebar from "../ui/SideBar";
 import { useForm } from "react-hook-form";
 import AllTasks from "../tasks/AllTasks";
-import './ListDetail.css'
+import "./ListDetail.css";
 
 function ListDetail() {
   const { id } = useParams();
@@ -50,11 +50,11 @@ function ListDetail() {
   };
 
   return (
-<>
-    <div className="d-flex">
-      <Sidebar />
-      <div>
-        <div className="">
+    <>
+      <div className="d-flex">
+        <Sidebar />
+        <div>
+          <div className="">
             {details && (
               <div className="list-title">
                 <h2>{details.title}</h2>
@@ -92,11 +92,10 @@ function ListDetail() {
                 <button onClick={() => setShow(!show)}> + Add task</button>
               </div>
             )}
+          </div>
         </div>
       </div>
-    </div>
-  </>
-
+    </>
   );
 }
 

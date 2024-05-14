@@ -19,8 +19,6 @@ function AddCard({ taskId }) {
 
   const handleCreateCard = async (data) => {
     try {
-      console.log("Holaaaa");
-      console.log(id, taskId, data);
       await createCard(id, taskId, data);
       reload();
       reset();

@@ -1,11 +1,10 @@
-// import { Link } from "react-router-dom";
 import Sidebar from "../components/ui/SideBar";
 
-function Home() {
+function Home({ darkMode }) {
   return (
     <>
       <div className="d-flex">
-        <Sidebar />
+        <Sidebar darkMode={darkMode} />
       </div>
     </>
   );

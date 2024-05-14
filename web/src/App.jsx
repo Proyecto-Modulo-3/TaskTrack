@@ -5,6 +5,7 @@ import Navbar from "./components/ui/NavBar";
 import Calendar from "./components/calendar/Calendar";
 import Home from "./pages/Home";
 import ListDetail from "./components/lists/ListDetail";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/lists/:id" element={<ListDetail />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
     </>

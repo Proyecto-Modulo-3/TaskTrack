@@ -1,0 +1,25 @@
+.app {
+    background-color: #ffffff; /* Color de fondo predeterminado (modo claro) */
+    color: #000000; /* Color de texto predeterminado (modo claro) */
+    transition: background-color 0.3s ease;
+    padding: 20px;
+  }
+  
+  .app.dark {
+    background-color: #1a1a1a; /* Color de fondo para el modo oscuro */
+    color: #ffffff; /* Color de texto para el modo oscuro */
+  }
+  
+  button {
+    background-color: #ffffff; /* Color de fondo predeterminado del botón (modo claro) */
+    color: #000000; /* Color de texto predeterminado del botón (modo claro) */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .app.dark button {
+    background-color: #000000; /* Color de fondo del botón para el modo oscuro */
+    color: #ffffff; /* Color de texto del botón para el modo oscuro */
+  }
+  

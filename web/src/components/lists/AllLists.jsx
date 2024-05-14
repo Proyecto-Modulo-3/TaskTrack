@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useReloadContext } from "../../contexts/reload.context";
 import AuthContext from "../../contexts/auth.context";
 
-function AllLists({ title, category }) {
+function AllLists({ title, category, darkMode }) {
   const [lists, setLists] = useState([]);
   const [editingListId, setEditingListId] = useState(null);
   const [editedTitle, setEditedTitle] = useState("");
@@ -60,7 +60,6 @@ function AllLists({ title, category }) {
     <div>
       {lists.map((list) => (
         <div key={list.id}>
-        
           {editingListId === list.id ? (
             <div>
               <input
@@ -72,25 +71,42 @@ function AllLists({ title, category }) {
             </div>
           ) : (
             <div className="d-flex justify-content-between mx-2 mt-2 align-items-center">
-              <div style={{ backgroundColor: list.color, padding: '10px', marginRight: '5px', borderRadius: '5px', width: '35px', height: '35px' }}></div>
+              <div
+                style={{
+                  backgroundColor: list.color,
+                  padding: "10px",
+                  marginRight: "5px",
+                  borderRadius: "5px",
+                  width: "35px",
+                  height: "35px",
+                }}
+              ></div>
               <button
                 onClick={() => {
                   navigate(`/lists/${list.id}`);
-                }}
-              >
+                }}              >
                 {list.title}
               </button>
               <div className="d-flex">
-                <i style={{ cursor: "pointer" }} onClick={() => handleDeleteList(list.id)} className="fa fa-trash m-2" aria-hidden="true"></i>
-                <i style={{ cursor: "pointer" }} onClick={() => {setEditingListId(list.id); setEditedTitle(list.title);}} className="fa fa-pencil-square-o m-2" aria-hidden="true"></i>
-
+                <i
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleDeleteList(list.id)}
+                  className="fa fa-trash m-2"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setEditingListId(list.id);
+                    setEditedTitle(list.title);
+                  }}
+                  className="fa fa-pencil-square-o m-2"
+                  aria-hidden="true"
+                ></i>
               </div>
-              
-              
-              
             </div>
           )}
-          </div>
+        </div>
       ))}
     </div>
   );
