@@ -48,9 +48,9 @@ function AllCards({ taskId, title }) {
     setDraggedCardId(cardId);
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
+  // const handleDragOver = (e) => {
+  //   e.preventDefault();
+  // };
 
   const handleDrop = async (e, targetTaskId, cardId) => {
     e.preventDefault();
@@ -88,8 +88,8 @@ function AllCards({ taskId, title }) {
           onDrop={(e) => handleDrop(e, taskId)}
         >
           <Card border="dark" style={{ width: "15rem" }}>
-            <Card.Body>
-              <Card.Title className="text-center">{card.text}</Card.Title>
+            <Card.Body className="d-flex justify-content-between">
+              <Card.Title className="m-2">{card.text}</Card.Title>
               <button onClick={() => handleDeleteCard(card.id)} className="btn">
                 <i className="fa fa-trash" aria-hidden="true"></i>
               </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { getLists, deleteList, editList } from "../../services/api.service";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useReloadContext } from "../../contexts/reload.context";
 import AuthContext from "../../contexts/auth.context";
 
@@ -11,6 +11,7 @@ function AllLists({ title, category, darkMode }) {
   const navigate = useNavigate();
   const { now, reload } = useReloadContext();
   const { user } = useContext(AuthContext);
+  
 
   useEffect(() => {
     async function fetchLists() {

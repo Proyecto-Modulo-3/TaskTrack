@@ -74,7 +74,7 @@ function AllTasks({ listId, title }) {
           <Card border="dark" style={{ width: "20rem", margin: "5px" }}>
             <Card.Body>
               {editedTaskId === task.id ? (
-                <div className="d-flex flex-column gap-2 text-center">
+                <div className="d-flex flex-column gap-2">
                   <input
                     type="text"
                     value={task.editedTitle}
@@ -94,18 +94,18 @@ function AllTasks({ listId, title }) {
                     onClick={() => setEditedTaskId(task.id)}
                   >
                     {task.title}
-                  </Card.Title>
-                  <Card.Header>
-                    <AllCards taskId={task.id} />
-                  </Card.Header>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <AddCard taskId={task.id} />
                     <button
                       onClick={() => handleDeleteTask(task.id)}
                       className="btn"
                     >
-                      <i className="fa fa-trash m-2" aria-hidden="true"></i>
+                      <i className="fa fa-trash" aria-hidden="true"></i>
                     </button>
+                  </Card.Title>
+                  <Card.Header>
+                    <AllCards taskId={task.id} />
+                  </Card.Header>
+                  <div className="text-center mt-3">
+                    <AddCard taskId={task.id} />
                   </div>
                 </div>
               )}

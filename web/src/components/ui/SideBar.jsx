@@ -11,6 +11,7 @@ const Sidebar = () => {
   const [lists, setLists] = useState([]);
   const { user } = useContext(AuthContext);
 
+
   const togglePopover = () => {
     setShowPop(!showPop);
   };
