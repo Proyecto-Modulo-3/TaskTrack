@@ -1,6 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useReloadContext } from "../../contexts/reload.context";
-import { getTasks, deleteTask, editTask } from "../../services/api.service";
+import {
+  getTasks,
+  deleteTask,
+  editTask,
+  editCard,
+} from "../../services/api.service";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
 import AddCard from "../cards/AddCard";
@@ -63,8 +68,17 @@ function AllTasks({ listId, title }) {
     setTasks(updatedTasks);
   };
 
-  const handleCardDragEnd = (listId, event) => {
-    console.log(listId, event, event.cardId, event.target.getAttribute("id"));
+  const handleCardDrop = async (event, taskId) => {
+    event.preventDefault();
+    // console.log(event);
+    const cardId = event.dataTransfer.getData("cardId");
+
+    try {
+      await editCard(id, taskId, cardId);
+      reload();
+    } catch (error) {
+      console.error("Error while dropping card:", error);
+    }
   };
 
   return (
@@ -72,7 +86,10 @@ function AllTasks({ listId, title }) {
       {tasks.map((task) => (
         <div key={task.id}>
           <Card border="dark" style={{ width: "20rem", margin: "5px" }}>
-            <Card.Body>
+            <Card.Body
+              onDrop={(event) => handleCardDrop(event, task.id)}
+              onDragOver={(event) => event.preventDefault()}
+            >
               {editedTaskId === task.id ? (
                 <div className="d-flex flex-column gap-2">
                   <input
@@ -88,24 +105,27 @@ function AllTasks({ listId, title }) {
                   </button>
                 </div>
               ) : (
-                <div onDragEnd={(event) => handleCardDragEnd(listId, event)}>
+                <div
+                  key={task.id}
+                  // onDragOver={(event) => handleCardDrop(event, task.id)}
+                >
                   <Card.Title
                     className="text-center title-cursor"
                     onClick={() => setEditedTaskId(task.id)}
                   >
                     {task.title}
+                  </Card.Title>
+                  <Card.Header>
+                    <AllCards taskId={task.id} />
+                  </Card.Header>
+                  <div className="d-flex justify-content-between mt-3">
+                    <AddCard taskId={task.id} />
                     <button
                       onClick={() => handleDeleteTask(task.id)}
                       className="btn"
                     >
                       <i className="fa fa-trash" aria-hidden="true"></i>
                     </button>
-                  </Card.Title>
-                  <Card.Header>
-                    <AllCards taskId={task.id} />
-                  </Card.Header>
-                  <div className="text-center mt-3">
-                    <AddCard taskId={task.id} />
                   </div>
                 </div>
               )}

@@ -5,6 +5,7 @@ import CreateListForm from "../lists/CreateListForm";
 import { Link } from "react-router-dom";
 import AllLists from "../lists/AllLists";
 import AuthContext from "../../contexts/auth.context";
+import './SideBar.css'
 
 const Sidebar = () => {
   const [showPop, setShowPop] = useState(false);
@@ -40,14 +41,14 @@ const Sidebar = () => {
               positions={["right", "top", "bottom", "left"]}
               content={
                 <div className="form">
-                  <button className="mx-5" onClick={togglePopover}>
+                  <button className="close-button mx-5 my-3" onClick={togglePopover}>
                     <i className="fa fa-times"></i>
                   </button>
                   <CreateListForm onClose={handleClosePopover} />
                 </div>
               }
             >
-              <button className="mx-5" onClick={togglePopover}>
+              <button className="add-list-button mx-5" onClick={togglePopover}>
                 <i className="fa fa-plus"></i>
               </button>
             </Popover>

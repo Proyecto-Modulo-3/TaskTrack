@@ -12,6 +12,8 @@ import {
 }
 from 'mdb-react-ui-kit';
 
+import "./Login.css";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -32,38 +34,6 @@ function Login() {
     }
   }
 
-  // return (
-  //   <form onSubmit={handleSubmit(onSubmit)} className="container mt-2">
-  //     <div className="mb-3">
-  //       <label>Email</label>
-  //       <input
-  //         type="email"
-  //         id="email"
-  //         className={`form-control ${errors.email ? "is-invalid" : ""}`}
-  //         {...register("email", {
-  //           required: "Email is required",
-  //         })}
-  //       />
-  //       {/* {errors.email && (<div className="invalid-feedback">{errors.email.message}</div>)} */}
-  //     </div>
-
-  //     <div className="mb-3">
-  //       <label>Password</label>
-  //       <input
-  //         type="password"
-  //         id="password"
-  //         className={`form-control ${errors.password ? "is-invalid" : ""}`}
-  //         {...register("password", {
-  //           required: "Password is required",
-  //         })}
-  //       />
-  //       {/* {errors.password && (<div className="invalid-feedback">{errors.password}</div>)} */}
-  //     </div>
-  //     <button type="submit" className="btn btn-success mt-3">
-  //       Login
-  //     </button>
-  //   </form>
-  // );
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
     <MDBContainer fluid>
@@ -79,19 +49,27 @@ function Login() {
               <MDBInput wrapperClass='mt-4 mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='email' type='email' size="lg" className={`${errors.email ? "is-invalid" : ""}`}
                 {...register("email", {
                   required: "Email is required",
-                })}/>
+                })}>
+                {errors.email && (
+                  <div className="invalid-feedback">{errors.email.message}</div>
+                )}
+              </MDBInput>
 
               <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='password' type='password' size="lg" className={`${errors.password ? "is-invalid" : ""}`}
                 {...register("password", {
                   required: "Password is required",
-                })}/>
+                })}>
+                {errors.password && (
+                  <div className="invalid-feedback">{errors.password.message}</div>
+                )}
+              </MDBInput>
 
-              <button type="submit" className="btn btn-success mt-3 mb-3">
+              <button type="submit" className="btn btn-light mt-3 mb-3">
                 Login
               </button>
 
               <div>
-                <p className="mb-0">Don't have an account? <NavLink to='/register' className="text-white-50 fw-bold">Sign Up</NavLink></p>
+                <p className="mb-0"><NavLink to='/register' className="text-white-50 fw-bold">Sign Up</NavLink></p>
 
               </div>
             </MDBCardBody>

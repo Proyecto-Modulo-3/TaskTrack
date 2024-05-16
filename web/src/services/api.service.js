@@ -93,8 +93,8 @@ export function getCards(listId, taskId) {
   return http.get(`/lists/${listId}/tasks/${taskId}/cards`)
 }
 
-export function editCard(listId, taskId, cardId, body) {
-  return http.patch(`/lists/${listId}/tasks/${taskId}/cards/${cardId}`, body);
+export function editCard(listId, taskId, cardId) {
+  return http.patch(`/lists/${listId}/tasks/${taskId}/cards/${cardId}`, {task: taskId});
 }
 
 export function deleteCards(listId, taskId, cardId) {

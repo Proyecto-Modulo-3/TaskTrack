@@ -51,7 +51,7 @@ function ListDetail() {
 
   return (
     <>
-      <div className="d-flex">
+      <div className="d-flex" style={{ width: '100%' }}>
         <Sidebar />
         <div>
           <div className="">

@@ -116,26 +116,26 @@ function Register() {
 
               <h2 className="fw-bold mb-2 text-uppercase">Register</h2>
                 
-              <MDBInput wrapperClass='mt-4 mb-4 mx-5 w-100' labelClass='text-white' label='Name' id='name' type='text' size="lg" className={`${errors.name ? "is-invalid" : ""}`}
+              <MDBInput wrapperClass='mt-4 mx-5 w-100' labelClass='text-white' label='Name' id='name' type='text' size="lg" className={`${errors.name ? "is-invalid" : ""}`}
                 {...register("name", {
                   required: "Name is required",
                 })}/>
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' labelClass='text-white' label='Username' id='username' type='text' size="lg" className={`${errors.username ? "is-invalid" : ""}`}
+              <MDBInput wrapperClass='mt-3 mb-3 mx-5 w-100' labelClass='text-white' label='Username' id='username' type='text' size="lg" className={`${errors.username ? "is-invalid" : ""}`}
                 {...register("username", {
                   required: "Username is required",
                 })}/>
-              <MDBInput wrapperClass='mt-4 mb-4 mx-5 w-100' labelClass='text-white' label='Email address' id='email' type='email' size="lg" className={`${errors.email ? "is-invalid" : ""}`}
+              <MDBInput wrapperClass='mb-3 mx-5 w-100' labelClass='text-white' label='Email' id='email' type='email' size="lg" className={`${errors.email ? "is-invalid" : ""}`}
                 {...register("email", {
                   required: "Email is required",
                 })}/>
                 
-                <MDBInput wrapperClass='mt-4 mb-4 mx-5 w-100' labelClass='text-white' label='Password' id='password' type='password' size="lg" className={`${errors.password ? "is-invalid" : ""}`}
+                <MDBInput wrapperClass='mb-3 mx-5 w-100' labelClass='text-white' label='Password' id='password' type='password' size="lg" className={`${errors.password ? "is-invalid" : ""}`}
                 {...register("password", {
                   required: "Password is required",
                 })}/>
 
-              <button type="submit" className="btn btn-success mt-3 mb-3">
-                Login
+              <button type="submit" className="btn btn-light mt-3 mb-3">
+                Register
               </button>
 
               <div>

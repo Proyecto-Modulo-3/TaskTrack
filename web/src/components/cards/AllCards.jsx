@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useReloadContext } from "../../contexts/reload.context";
 import { useParams } from "react-router-dom";
 import AuthContext from "../../contexts/auth.context";
@@ -41,40 +41,27 @@ function AllCards({ taskId, title }) {
     }
   };
 
-  const handleDragStart = (e, cardId) => {
-    e.cardId = cardId;
-    console.log(e);
+  const handleDragStart = (event, cardId) => {
+    event.dataTransfer.setData("cardId", cardId)
     setDragging(true);
     setDraggedCardId(cardId);
   };
 
-  // const handleDragOver = (e) => {
-  //   e.preventDefault();
-  // };
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  }
 
-  const handleDrop = async (e, targetTaskId, cardId) => {
-    e.preventDefault();
+const handleDrop = async (event, targetTaskId) => {
+  event.preventDefault();
 
-    try {
-      if (targetTaskId !== taskId) {
-        await editCard(id, taskId, cardId, { taskId: targetTaskId });
+  const cardId = event.dataTransfer.getData("cardId");
 
-        const updatedCards = cards.filter((card) => card.id !== cardId);
-        const draggedCard = cards.find((card) => card.id === cardId);
-        const updatedTaskCards = [
-          ...updatedCards,
-          { ...draggedCard, taskId: targetTaskId },
-        ];
-
-        setCards(updatedTaskCards);
-      }
-    } catch (error) {
-      console.error("Error dropping card:", error);
-    }
-
-    setDragging(false);
-    setDraggedCardId(null);
-  };
+  try {
+    await editCard(id, targetTaskId, cardId, { taskId: targetTaskId });
+  } catch (error) {
+    console.error("Error while dropping card:", error);
+  }
+}
 
   return (
     <div className="d-flex flex-column">
@@ -85,6 +72,7 @@ function AllCards({ taskId, title }) {
           style={{ marginBottom: "10px" }}
           draggable
           onDragStart={(e) => handleDragStart(e, card.id)}
+          onDragOver={(e) => handleDragOver(e)}
           onDrop={(e) => handleDrop(e, taskId)}
         >
           <Card border="dark" style={{ width: "15rem" }}>

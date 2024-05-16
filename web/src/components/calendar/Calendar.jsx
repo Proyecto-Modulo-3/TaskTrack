@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -26,7 +26,6 @@ function Calendar() {
         console.error("Error fetching lists:", error);
       }
     };
-
     fetchLists();
   }, []);
 
@@ -132,8 +131,8 @@ function Calendar() {
   return (
     <>
       <div style={{ display: "flex" }}>
-        <Sidebar />
-        <div style={{ flex: 1 }}>
+        <Sidebar style={{ zIndex: "1"}}/>
+        <div style={{ flex: 1, zIndex: "0" }}>
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             initialView={"dayGridMonth"}
