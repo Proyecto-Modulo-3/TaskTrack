@@ -9,8 +9,7 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-}
-from 'mdb-react-ui-kit';
+} from "mdb-react-ui-kit";
 
 function Register() {
   const latitude = useRef(0);
@@ -106,49 +105,83 @@ function Register() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-    <MDBContainer fluid>
+      <MDBContainer fluid>
+        <MDBRow className="d-flex justify-content-center align-items-center h-100">
+          <MDBCol col="12">
+            <MDBCard
+              className="bg-dark text-white my-5 mx-auto"
+              style={{ borderRadius: "1rem", maxWidth: "400px" }}
+            >
+              <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100">
+                <h2 className="fw-bold mb-2 text-uppercase">Register</h2>
 
-      <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-        <MDBCol col='12'>
+                <MDBInput
+                  wrapperClass="mt-4 mx-5 w-100"
+                  labelClass="text-white"
+                  label="Name"
+                  id="name"
+                  type="text"
+                  size="lg"
+                  className={`${errors.name ? "is-invalid" : ""}`}
+                  {...register("name", {
+                    required: "Name is required",
+                  })}
+                />
+                <MDBInput
+                  wrapperClass="mt-3 mb-3 mx-5 w-100"
+                  labelClass="text-white"
+                  label="Username"
+                  id="username"
+                  type="text"
+                  size="lg"
+                  className={`${errors.username ? "is-invalid" : ""}`}
+                  {...register("username", {
+                    required: "Username is required",
+                  })}
+                />
+                <MDBInput
+                  wrapperClass="mb-3 mx-5 w-100"
+                  labelClass="text-white"
+                  label="Email"
+                  id="email"
+                  type="email"
+                  size="lg"
+                  className={`${errors.email ? "is-invalid" : ""}`}
+                  {...register("email", {
+                    required: "Email is required",
+                  })}
+                />
 
-          <MDBCard className='bg-dark text-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '400px'}}>
-            <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
+                <MDBInput
+                  wrapperClass="mb-3 mx-5 w-100"
+                  labelClass="text-white"
+                  label="Password"
+                  id="password"
+                  type="password"
+                  size="lg"
+                  className={`${errors.password ? "is-invalid" : ""}`}
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                />
 
-              <h2 className="fw-bold mb-2 text-uppercase">Register</h2>
-                
-              <MDBInput wrapperClass='mt-4 mx-5 w-100' labelClass='text-white' label='Name' id='name' type='text' size="lg" className={`${errors.name ? "is-invalid" : ""}`}
-                {...register("name", {
-                  required: "Name is required",
-                })}/>
-              <MDBInput wrapperClass='mt-3 mb-3 mx-5 w-100' labelClass='text-white' label='Username' id='username' type='text' size="lg" className={`${errors.username ? "is-invalid" : ""}`}
-                {...register("username", {
-                  required: "Username is required",
-                })}/>
-              <MDBInput wrapperClass='mb-3 mx-5 w-100' labelClass='text-white' label='Email' id='email' type='email' size="lg" className={`${errors.email ? "is-invalid" : ""}`}
-                {...register("email", {
-                  required: "Email is required",
-                })}/>
-                
-                <MDBInput wrapperClass='mb-3 mx-5 w-100' labelClass='text-white' label='Password' id='password' type='password' size="lg" className={`${errors.password ? "is-invalid" : ""}`}
-                {...register("password", {
-                  required: "Password is required",
-                })}/>
+                <button type="submit" className="btn btn-light mt-3 mb-3">
+                  Register
+                </button>
 
-              <button type="submit" className="btn btn-light mt-3 mb-3">
-                Register
-              </button>
-
-              <div>
-                <p className="mb-0">Already have an account? <NavLink to='/login' className="text-white-50 fw-bold">Login</NavLink></p>
-
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-
-        </MDBCol>
-      </MDBRow>
-
-    </MDBContainer>
+                <div>
+                  <p className="mb-0">
+                    Already have an account?{" "}
+                    <NavLink to="/login" className="text-white-50 fw-bold">
+                      Login
+                    </NavLink>
+                  </p>
+                </div>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
     </form>
   );
 }
