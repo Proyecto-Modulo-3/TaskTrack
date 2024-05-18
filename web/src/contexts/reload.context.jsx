@@ -7,7 +7,7 @@ export function ReloadContextProvider({ children }) {
 
   function reload() {
     setNow(Date.now());
-  };
+  }
 
   const value = {
     now,

@@ -28,7 +28,7 @@ export function AuthContextProvider({ children }) {
 
   async function doLogin(data) {
     await login(data);
-    fetchProfile();
+    await fetchProfile();
   }
 
   function doLogout() {

@@ -5,13 +5,16 @@ import App from "./App.jsx";
 import "./index.css";
 import { AuthContextProvider } from "./contexts/auth.context.jsx";
 import { ReloadContextProvider } from "./contexts/reload.context.jsx";
+import { TaskContextProvider } from "./contexts/tasks.context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
         <ReloadContextProvider>
+          <TaskContextProvider>
           <App />
+          </TaskContextProvider>
         </ReloadContextProvider>
       </AuthContextProvider>
     </BrowserRouter>

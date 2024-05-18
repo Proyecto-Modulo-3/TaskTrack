@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -9,6 +9,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { getLists, createTask, getTasks } from "../../services/api.service";
+import { useTaskContext } from "../../contexts/tasks.context";
 
 function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -16,6 +17,8 @@ function Calendar() {
   const [events, setEvents] = useState([]);
   const [lists, setLists] = useState([]);
   const [selectedList, setSelectedList] = useState("");
+  const { visibleTasks, showTasks, hideTasks } = useTaskContext();
+
 
   useEffect(() => {
     const fetchLists = async () => {
@@ -33,18 +36,17 @@ function Calendar() {
     const fetchEvents = async () => {
       try {
         const events = [];
-        for (const list of lists) {
-          const { data: tasks } = await getTasks(null, list.id);
+        for (const listId in visibleTasks) {
+          const tasks = visibleTasks[listId]
           for (const task of tasks) {
             events.push({
               title: task.title,
               date: task.date,
-              list: list.id,
-              color: list.color,
+              list: listId,
+              color: task.color,
             });
           }
         }
-        console.log(events);
         setEvents(events);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -52,7 +54,7 @@ function Calendar() {
     };
 
     fetchEvents();
-  }, [lists]);
+  }, [visibleTasks]);
 
   const handleDateClick = (info) => {
     setSelectedDate(info.dateStr);

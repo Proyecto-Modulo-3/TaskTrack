@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   getLists,
   deleteList,
@@ -8,16 +8,17 @@ import {
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useReloadContext } from "../../contexts/reload.context";
 import AuthContext from "../../contexts/auth.context";
+import { useTaskContext } from "../../contexts/tasks.context";
 
 function AllLists({ title, category, darkMode }) {
   const [lists, setLists] = useState([]);
   const [editingListId, setEditingListId] = useState(null);
   const [editedTitle, setEditedTitle] = useState("");
-  const [tasksVisible, setTasksVisible] = useState(true);
-  const navigate = useNavigate();
   const { now, reload } = useReloadContext();
   const { user } = useContext(AuthContext);
   const location = useLocation();
+  const { visibleTasks, showTasks, hideTasks } = useTaskContext();
+  const [showEye, setShowEye] = useState(true);
 
   useEffect(() => {
     async function fetchLists() {
@@ -29,6 +30,7 @@ function AllLists({ title, category, darkMode }) {
         const listsOwnedBy = fetchedLists.map((list) => ({
           ...list,
           owner: list.owner.id,
+          showEye: true
         }));
         setLists(listsOwnedBy);
       } catch (error) {
@@ -63,19 +65,35 @@ function AllLists({ title, category, darkMode }) {
     setEditedTitle(event.target.value);
   };
 
-  const showTasks = async (listId) => {
-    try {
-      const { data: fetchedTasks } = await getTasks({}, listId);
-      setTasks((prevTasks) => ({ ...prevTasks, [listId]: fetchedTasks }));
-      setVisibleTasks((prev) => ({ ...prev, [listId]: true }));
-    } catch (error) {
-      console.error(error);
+  const handleShowTasks = async (listId) => {
+    if (!visibleTasks[listId]) {
+      try {
+        const { data: fetchedTasks } = await getTasks(null, listId);
+        showTasks(listId, fetchedTasks);
+        setShowEye(false);
+      } catch (error) {
+        console.error(error);
+      }
     }
+    setLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId ? { ...list, showEye: false } : list
+      )
+    );
   };
 
-  const hideTasks = (listId) => {
-    setVisibleTasks((prev) => ({ ...prev, [listId]: false }));
+  const handleHideTasks = (listId) => {
+    hideTasks(listId);
+    setLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === listId ? { ...list, showEye: true } : list
+      )
+    );
   };
+
+  // const handleToggleEye = () => {
+  //   setShowEye(!showEye);
+  // };
 
   return (
     <div>
@@ -108,26 +126,23 @@ function AllLists({ title, category, darkMode }) {
               >
                 {list.title}
               </NavLink>
-              {/* <button
-                onClick={() => {
-                  navigate(`/lists/${list.id}`);
-                }}              >
-                {list.title}
-              </button> */}
               {location.pathname === "/calendar" && (
                 <div className="d-flex">
-                  <i
-                    style={{ cursor: "pointer" }}
-                    onClick={() => showTasks(list.id)}
-                    className="fa fa-eye m-2"
-                    aria-hidden="true"
-                  ></i>
-                  <i
-                    style={{ cursor: "pointer" }}
-                    onClick={() => hideTasks(list.id)}
-                    className="fa fa-eye-slash m-2"
-                    aria-hidden="true"
-                  ></i>
+                  {list.showEye ? (
+                    <i
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleShowTasks(list.id)}
+                      className="fa fa-eye m-2"
+                      aria-hidden="true"
+                    ></i>
+                  ) : (
+                    <i
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleHideTasks(list.id)}
+                      className="fa fa-eye-slash m-2"
+                      aria-hidden="true"
+                    ></i>
+                  )}
                 </div>
               )}
               {location.pathname !== "/calendar" && (

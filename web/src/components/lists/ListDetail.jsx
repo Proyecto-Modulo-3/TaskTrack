@@ -53,56 +53,58 @@ function ListDetail() {
     <>
       <div className="d-flex" style={{ width: "100%" }}>
         <Sidebar />
-        <div>
+        <div className="w-100 px-">
           <div className="">
             {details && (
               <div className="list-title">
                 <h2>{details.title}</h2>
               </div>
             )}
-            <AllTasks listId={id} />
-            {show && (
-              <>
-                <div className="mx-5 d-flex justify-content-between align-items-center">
-                  <form onSubmit={handleSubmit(handleCreateTask)}>
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      placeholder="Task title"
-                      onChange={(e) => setTaskTitle(e.target.value)}
-                      className={`form-control ${
-                        errors.title ? "is-invalid" : ""
-                      }`}
-                      {...register("title", {
-                        required: "Title is required",
-                      })}
-                    />
-                    <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      className={`form-control ${
-                        errors.date ? "is-invalid" : ""
-                      }`}
-                      {...register("date", {
-                        // required: "Date is required",                  // Permite crear tasks sin que sea obligatorio determinar una fecha, pero al ponerla, se incluye en el calendario
-                      })}
-                    />
-                    <div>
-                      <button type="submit">Add task</button>
-                      <button onClick={handleClose}>Close</button>
-                    </div>
-                  </form>
-                </div>
-              </>
-            )}
+            <div className="m-2 d-flex flex-wrap gap-4 p-5">
+              <AllTasks listId={id} />
+              {show && (
+                <>
+                  <div className="mx-5 d-flex justify-content-between align-items-center">
+                    <form onSubmit={handleSubmit(handleCreateTask)}>
+                      <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="Task title"
+                        onChange={(e) => setTaskTitle(e.target.value)}
+                        className={`form-control ${
+                          errors.title ? "is-invalid" : ""
+                        }`}
+                        {...register("title", {
+                          required: "Title is required",
+                        })}
+                      />
+                      <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        className={`form-control ${
+                          errors.date ? "is-invalid" : ""
+                        }`}
+                        {...register("date", {
+                          // required: "Date is required",
+                        })}
+                      />
+                      <div>
+                        <button type="submit">Add task</button>
+                        <button onClick={handleClose}>Close</button>
+                      </div>
+                    </form>
+                  </div>
+                </>
+              )}
 
-            {!show && (
-              <div className="mx-5 d-flex justify-content-between align-items-center">
-                <button onClick={() => setShow(!show)}> + Add task</button>
-              </div>
-            )}
+              {!show && (
+                <div className="mx-5 d-flex justify-content-between align-items-center">
+                  <button onClick={() => setShow(!show)}> + Add task</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

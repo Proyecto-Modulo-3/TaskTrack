@@ -70,7 +70,6 @@ function AllTasks({ listId, title }) {
 
   const handleCardDrop = async (event, taskId) => {
     event.preventDefault();
-    // console.log(event);
     const cardId = event.dataTransfer.getData("cardId");
 
     try {
@@ -82,7 +81,7 @@ function AllTasks({ listId, title }) {
   };
 
   return (
-    <div className="m-2 d-flex justify-content-center">
+    <>
       {tasks.map((task) => (
         <div key={task.id}>
           <Card border="dark" style={{ width: "20rem", margin: "5px" }}>
@@ -107,7 +106,6 @@ function AllTasks({ listId, title }) {
               ) : (
                 <div
                   key={task.id}
-                  // onDragOver={(event) => handleCardDrop(event, task.id)}
                 >
                   <Card.Title
                     className="text-center title-cursor"
@@ -133,7 +131,7 @@ function AllTasks({ listId, title }) {
           </Card>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

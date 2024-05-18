@@ -15,6 +15,7 @@ module.exports.create = (req, res, next) => {
 
 module.exports.viewTasks = (req, res, next) => {
   Task.find({ list: req.params.listId })
+  .populate("list")
     .then((task) => {
       if (task.length > 0) {
         res.status(200).json(task);
