@@ -41,6 +41,14 @@ export function getProfile() {
   return http.get("/profile");
 }
 
+export function editProfile(id, body) {
+  return http.patch(`/users/${id}`, body);
+}
+
+export function deleteAccount(id) {
+  return http.delete(`/users/${id}`);
+}
+
 export function logout() {
   localStorage.removeItem("token");
 }
