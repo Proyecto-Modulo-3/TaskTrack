@@ -51,7 +51,7 @@ function ListDetail() {
 
   return (
     <>
-      <div className="d-flex" style={{ width: '100%' }}>
+      <div className="d-flex" style={{ width: "100%" }}>
         <Sidebar />
         <div>
           <div className="">
@@ -86,7 +86,7 @@ function ListDetail() {
                         errors.date ? "is-invalid" : ""
                       }`}
                       {...register("date", {
-                        required: "Date is required",
+                        // required: "Date is required",                  // Permite crear tasks sin que sea obligatorio determinar una fecha, pero al ponerla, se incluye en el calendario
                       })}
                     />
                     <div>
